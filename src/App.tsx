@@ -1,44 +1,27 @@
-import { useState } from 'react'
 import './App.css'
 
-function App() {
-    const [isLoggedIn, setIsLoggedIn] = useState(false)
+import {Route, Routes} from 'react-router-dom';
+import HomePage from "./HomePage.tsx";
+import LogIn from "./LogIn.tsx";
+import Register from "./Register.tsx";
+import RegisterPart2 from "./RegisterPart2.tsx";
 
-    const handleLogin = () => {
-        setIsLoggedIn(true)
-    }
-
-    const handleLogout = () => {
-        setIsLoggedIn(false)
-    }
+export default function Router() {
 
     return (
-        <div className="home-page">
-            <header>
-                <h1>Video Sharing Platform</h1>
-                <nav>
-                    {isLoggedIn ? (
-                        <>
-                            <button onClick={handleLogout}>Logout</button>
-                            <button>Upload Video</button>
-                        </>
-                    ) : (
-                        <>
-                            <a href="/login"><button>Login</button></a>
-                            <a href="/register"><button>Register</button></a>
-                        </>
-                    )}
-                </nav>
-            </header>
-            <main>
-                <h2>Featured Videos</h2>
-                <div className="video-list">
-                    {/* Placeholder for video thumbnails */}
-                    <div className="video-item">Video 1</div>
-                </div>
-            </main>
-        </div>
-    )
-}
 
-export default App
+
+                <Routes>
+
+                    <Route path="/" element={<HomePage/>}/>
+                    <Route path="/login" element={<LogIn/>}/>
+                    <Route path="/register" element={<Register/>}/>
+                    <Route path="/register2" element={<RegisterPart2/>}/>
+
+
+
+
+                </Routes>
+
+    );
+}

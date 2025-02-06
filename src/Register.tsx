@@ -25,7 +25,7 @@ function Register() {
             return
         }
 
-        try {
+        /*try {
             const response = await fetch('/register', {
                 method: 'POST',
                 headers: {
@@ -43,7 +43,8 @@ function Register() {
         } catch (error) {
             setMessage('Error registering user')
         }
-    }
+         */
+
 
     return (
         <div className="register-page">
