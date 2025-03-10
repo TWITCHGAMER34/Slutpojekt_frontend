@@ -11,13 +11,14 @@ export default function Router() {
 
     return (
         <>
-            <VideoPage/>
 
             <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/login" element={<LogIn />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/upload" element={<UploadVideo />} />
+                <Route path="/video" element={<VideoPage />} />
+
             </Routes>
         </>
     );

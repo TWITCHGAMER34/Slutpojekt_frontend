@@ -1,0 +1,12 @@
+.home-page{
+    background-color: #0056b3;
+    width: 100vw;
+    height: 100vh;
+    padding: 10%;
+    overflow: hidden;
+}
+
+#root{
+    margin:0;
+    padding: 0;
+}
