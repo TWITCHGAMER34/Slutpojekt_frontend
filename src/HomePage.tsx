@@ -5,10 +5,8 @@ function HomePage(){
 
 
     return(
-        <div>hehehehe
-
-
-
+        <div>
+            hehehehe
         </div>
 
     )
