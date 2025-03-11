@@ -17,7 +17,8 @@ export default function Router() {
                 <Route path="/login" element={<LogIn />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/upload" element={<UploadVideo />} />
-                <Route path="/videopage" element={<VideoPage />} />
+                <Route path="/video" element={<VideoPage />} />
+
             </Routes>
         </>
     );

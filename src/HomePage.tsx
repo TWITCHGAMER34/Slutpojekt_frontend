@@ -5,8 +5,8 @@ function HomePage(){
 
 
     return(
-        <div>
-            hehehehe
+        <div className={"home-page"}>
+            heheheheh
         </div>
 
     )
