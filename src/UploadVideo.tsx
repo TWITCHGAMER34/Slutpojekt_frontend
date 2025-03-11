@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import * as React from "react";
+import styles from "./Components/UploadVideo.module.css";
 
 const UploadVideo: React.FC = () => {
     const [videoFile, setVideoFile] = useState<File | null>(null);
@@ -43,7 +44,7 @@ const UploadVideo: React.FC = () => {
     };
 
     return (
-        <div className="upload-container">
+        <div className={styles.uploadContainer}>
             <h2>Upload Video</h2>
             <input type="file" accept="video/*" onChange={handleFileChange} />
             <input type="text" placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} />
