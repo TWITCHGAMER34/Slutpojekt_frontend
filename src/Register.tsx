@@ -1,8 +1,20 @@
-import { useState } from 'react'
-import './Register.css'
+import React, { useState, ChangeEvent, FormEvent } from 'react';
+import axios from 'axios';
+import './Register.css';
 
-function Register() {
-    const [formData, setFormData] = useState({
+interface FormData {
+    firstname: string;
+    lastname: string;
+    DOB: string;
+    email: string;
+    password: string;
+    confirm_password: string;
+    username: string;
+    channel_name: string;
+}
+
+const RegistrationForm: React.FC = () => {
+    const [formData, setFormData] = useState<FormData>({
         firstname: '',
         lastname: '',
         DOB: '',
@@ -11,138 +23,43 @@ function Register() {
         confirm_password: '',
         username: '',
         channel_name: ''
-    })
-    const [message, setMessage] = useState('')
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value
-        })
-    }
+    });
+    const [error, setError] = useState<string | null>(null);
 
-    const handleSubmit = async (e: React.FormEvent) => {
-            setMessage('Passwords do not match')
-            return
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const handleSubmit = async (e: FormEvent) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post('http://localhost:3000', formData); // Replace with your backend URL
+            alert(response.data.message);
+        } catch (error: any) {
+            setError(error.response?.data?.error || 'An error occurred');
         }
-
-        /*try {
-            const response = await fetch('/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            })
-
-            const result = await response.json()
-            if (response.ok) {
-                setMessage(result.message)
-            } else {
-                setMessage(result.error || 'Error registering user')
-            }
-        } catch (error) {
-            setMessage('Error registering user')
-        }
-         */
-
+    };
 
     return (
-        <div className="register-page">
-            <h2>Register</h2>
-            <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label htmlFor="firstname">First Name:</label>
-                    <input
-                        type="text"
-                        id="firstname"
-                        name="firstname"
-                        value={formData.firstname}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="lastname">Last Name:</label>
-                    <input
-                        type="text"
-                        id="lastname"
-                        name="lastname"
-                        value={formData.lastname}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="DOB">Date of Birth:</label>
-                    <input
-                        type="date"
-                        id="DOB"
-                        name="DOB"
-                        value={formData.DOB}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="email">Email:</label>
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="password">Password:</label>
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="confirm_password">Confirm Password:</label>
-                    <input
-                        type="password"
-                        id="confirm_password"
-                        name="confirm_password"
-                        value={formData.confirm_password}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="username">Username:</label>
-                    <input
-                        type="text"
-                        id="username"
-                        name="username"
-                        value={formData.username}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="channel_name">Channel Name:</label>
-                    <input
-                        type="text"
-                        id="channel_name"
-                        name="channel_name"
-                        value={formData.channel_name}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <button type="submit">Register</button>
-            </form>
-            {message && <p>{message}</p>}
+        <div className="register-container">
+            <div className="register-page">
+                <h1>Register</h1>
+                <form onSubmit={handleSubmit}>
+                    <input type="text" name="firstname" placeholder="First Name" onChange={handleChange} required/>
+                    <input type="text" name="lastname" placeholder="Last Name" onChange={handleChange} required/>
+                    <input type="date" name="DOB" onChange={handleChange} required/>
+                    <input type="email" name="email" placeholder="Email" onChange={handleChange} required/>
+                    <input type="password" name="password" placeholder="Password" onChange={handleChange} required/>
+                    <input type="password" name="confirm_password" placeholder="Confirm Password" onChange={handleChange} required/>
+                    <input type="text" name="username" placeholder="Username" onChange={handleChange} required/>
+                    <input type="text" name="channel_name" placeholder="Channel Name" onChange={handleChange} required/>
+                    <div> <button type="submit">Register</button> </div>
+                    {error && <p>{error}</p>}
+                </form>
+            </div>
+            <a href="/login">Already have an account?</a>
         </div>
-    )
-}
+    );
+};
 
-export default Register
+export default RegistrationForm;

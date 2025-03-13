@@ -1,0 +1,155 @@
+.account-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    margin-top: 5rem;
+}
+
+.login-prompt {
+    font-size: 2rem;
+}
+
+.account-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100vw;
+    padding: 1rem;
+    margin-top: 3rem;
+
+    .column {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        .profile-picture {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin: 0.5rem;
+
+            font-weight: bold;
+        }
+
+    }
+
+    .third-column {
+        align-items: flex-start !important;
+        margin-top: 10rem;
+
+        button {
+            font-size: large;
+            font-weight: bold;
+
+            width: 50%;
+        }
+    }
+}
+
+button {
+    padding: 0.5rem 1rem;
+    background-color: #61dafb;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.account-wrapper {
+
+    .account-info {
+        width: 80%;
+        justify-items: start;
+        border: 3px solid #ababab; /* Ensure the border is visible */
+        border-radius: 8px; /* Add border radius */
+        padding: 1rem; /* Add padding for better visibility */
+        margin-top: 1rem;
+
+        form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+
+            div {
+                width: 100%;
+                display: grid;
+                grid-template-columns: 1fr 8fr;
+                margin-bottom: 1rem;
+
+                label {
+                    font-weight: bold;
+                    justify-self: start;
+                }
+
+                input {
+                    width: 99%;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                }
+            }
+
+            .char-limit {
+                font-size: 0.875rem; /* Small font size */
+                color: #666; /* Grey color */
+                margin-top: -0.75rem; /* Small margin at the top */
+                align-self: flex-end;
+            }
+
+            button {
+                align-self: flex-end;
+            }
+        }
+
+        textarea {
+            width: 100%;
+            height: 150px; /* Set a fixed height */
+            overflow-y: auto; /* Enable vertical scrolling */
+            resize: none; /* Disable resizing */
+        }
+
+
+        .info-paragraph {
+            width: 100%; /* Keep the lines the same length */
+            border-bottom: 2px solid #ababab; /* Add a solid line */
+            padding-bottom: 0.5rem; /* Add some padding for better spacing */
+            margin-bottom: 0.5rem; /* Add some margin for better spacing */
+            text-align: left; /* Align text to the left */
+            margin-left: 0; /* Remove left margin */
+        }
+
+        .profile-pic {
+            width: 100%;
+            justify-content: space-between;
+            margin: 0;
+            padding: 0;
+
+            display: flex;
+            flex-direction: row;
+
+            .right-side {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+
+                margin-right: 1rem;
+            }
+
+            .icon {
+                width: 100px;
+                height: auto;
+
+                margin-left: 2rem;
+            }
+        }
+    }
+}

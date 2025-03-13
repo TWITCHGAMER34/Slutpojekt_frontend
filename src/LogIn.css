@@ -1,13 +1,13 @@
-.register-container {
+.login-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
+    height: 100vh; /* Ensure the container takes the full height of the viewport */
     width: 100vw;
 }
 
-.register-page {
+.login-page {
     width: 50%;
     max-width: 300px;
     margin: 1rem 0;
@@ -36,6 +36,7 @@ input {
 
 button {
     padding: 0.5rem 1rem;
+    margin-top: 1rem;
     background-color: #61dafb;
     border: none;
     cursor: pointer;
