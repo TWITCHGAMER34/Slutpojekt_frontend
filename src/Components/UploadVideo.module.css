@@ -1,16 +1,34 @@
+/* Gradient background for the entire page */
+body, html {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin: 0;
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    font-family: 'Arial', sans-serif;
+}
+
 .uploadContainer {
     max-width: 600px;
     margin: 0 auto;
     padding: 2rem;
     border: 1px solid #ccc;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: #f9f9f9;
+    background-color: #ffffff;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    animation: fadeIn 1s ease-in-out;
 }
 
 .uploadContainer h2 {
     margin-bottom: 1.5rem;
     color: #333;
+    font-family: 'Roboto', sans-serif;
 }
 
 .uploadContainer input[type="file"],
@@ -22,6 +40,13 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.uploadContainer input[type="file"]:hover,
+.uploadContainer input[type="text"]:hover,
+.uploadContainer textarea:hover {
+    border-color: #007bff;
 }
 
 .uploadContainer textarea {
@@ -31,21 +56,57 @@
 
 .uploadContainer button {
     padding: .75rem 1.5rem;
-    background-color: #007bff;
+    background: linear-gradient(135deg, #007bff, #0056b3);
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 1rem;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .uploadContainer button:hover {
-    background-color: #0056b3;
+    background: linear-gradient(135deg, #0056b3, #003f7f);
+    transform: translateY(-2px);
 }
 
 .uploadContainer progress {
     width: 100%;
     margin-top: 1rem;
+    height: 20px;
+    border-radius: 5px;
+    overflow: hidden;
 }
 
+.uploadContainer progress::-webkit-progress-bar {
+    background-color: #f3f3f3;
+}
+
+.uploadContainer progress::-webkit-progress-value {
+    background-color: #007bff;
+    transition: width 0.3s;
+}
+
+.uploadContainer label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+
+.uploadContainer input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-right: .5rem;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
