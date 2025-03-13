@@ -1,38 +1,42 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useAuth } from './AuthContext';
 import './Account.css';
 
 function Account() {
-    const { token, username } = useAuth();
+    const { isLoggedIn, user } = useAuth();
     const [userInfo, setUserInfo] = useState({
-        firstname: '',
-        lastname: '',
-        DOB: '',
-        email: '',
-        username: '',
-        channel_name: '',
-        description: '',
-        profilePicture: null
+        user: {
+            firstname: '',
+            lastname: '',
+            DOB: '',
+            email: '',
+            username: '',
+            channel_name: '',
+            description: '',
+            profilePicture: '' as string | File
+        }
     });
 
-    const handleProfilePictureChange = (event) => {
-        setUserInfo({ ...userInfo, profilePicture: event.target.files[0] });
+    const handleProfilePictureChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (event.target.files) {
+            setUserInfo({ ...userInfo, user: { ...userInfo.user, profilePicture: event.target.files[0] } });
+        }
     };
 
-    const handleDescriptionChange = (event) => {
-        setUserInfo({ ...userInfo, description: event.target.value });
+    const handleDescriptionChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setUserInfo({ ...userInfo, user: { ...userInfo.user, description: event.target.value } });
     };
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         const formData = new FormData();
-        formData.append('profilePicture', userInfo.profilePicture);
-        formData.append('description', userInfo.description);
+        formData.append('profilePicture', userInfo.user.profilePicture as File);
+        formData.append('description', userInfo.user.description);
 
         try {
             await axios.post('http://localhost:3000/account/update', formData, {
-                headers: { Authorization: `Bearer ${token}` }
+                headers: { Authorization: `Bearer ${user?.token}` }
             });
             alert('Changes saved successfully');
         } catch (error) {
@@ -41,13 +45,11 @@ function Account() {
     };
 
     useEffect(() => {
-        if (token) {
+        if (isLoggedIn) {
             const fetchUserInfo = async () => {
                 try {
-                    const response = await axios.get('http://localhost:3000/account', {
-                        headers: { Authorization: `Bearer ${token}` }
-                    });
-                    setUserInfo(response.data);
+                    const response = await axios.get(`${import.meta.env.VITE_API_URL}/account`);
+                    setUserInfo({ user: response.data });
                 } catch (error) {
                     console.error('Error fetching user info', error);
                 }
@@ -55,9 +57,9 @@ function Account() {
 
             fetchUserInfo();
         }
-    }, [token]);
+    }, [isLoggedIn]);
 
-    if (!token) {
+    if (!isLoggedIn) {
         return (
             <div className="login-prompt">
                 <p>You need to <a href="/login">log in</a> to view your account.</p>
@@ -70,8 +72,8 @@ function Account() {
             <div className="account-container">
                 <div className="column"></div>
                 <div className="column">
-                    <img src="src/assets/ProfilePic.png" alt="Profile Picture" className="profile-picture"/>
-                    <h1>{userInfo.channel_name || "Channel Name"}</h1>
+                    <img src={typeof userInfo.user.profilePicture === 'string' ? userInfo.user.profilePicture : 'src/assets/ProfilePic.png'} alt="Profile Picture" className="profile-picture"/>
+                    <h1>{userInfo.user.channel_name || "Channel Name"}</h1>
                 </div>
                 <div className="column Cthird-column">
                     <button onClick={() => window.location.href = '/channel'}>View Channel</button>
@@ -88,7 +90,7 @@ function Account() {
                     <div>
                         <label>Description:</label>
                         <textarea
-                            value={userInfo.description}
+                            value={userInfo.user.description || ''}
                             onChange={handleDescriptionChange}
                             rows={5}
                             maxLength={1000}
@@ -101,31 +103,31 @@ function Account() {
             </div>
 
             <div className="account-info">
-            <h2>More Account Information</h2>
+                <h2>More Account Information</h2>
                 <form>
                     <div>
                         <label>First Name:</label>
-                        <input type="text" value={userInfo.firstname} readOnly/>
+                        <input type="text" value={userInfo.user.firstname || ''} readOnly/>
                     </div>
                     <div>
                         <label>Last Name:</label>
-                        <input type="text" value={userInfo.lastname} readOnly/>
+                        <input type="text" value={userInfo.user.lastname || ''} readOnly/>
                     </div>
                     <div>
                         <label>Date of Birth:</label>
-                        <input type="date" value={userInfo.DOB} readOnly/>
+                        <input type="date" value={userInfo.user.DOB || ''} readOnly/>
                     </div>
                     <div>
                         <label>Email:</label>
-                        <input type="email" value={userInfo.email} readOnly/>
+                        <input type="email" value={userInfo.user.email || ''} readOnly/>
                     </div>
                     <div>
                         <label>Username:</label>
-                        <input type="text" value={userInfo.username} readOnly/>
+                        <input type="text" value={userInfo.user.username || ''} readOnly/>
                     </div>
                     <div>
                         <label>Channel Name:</label>
-                        <input type="text" value={userInfo.channel_name} readOnly/>
+                        <input type="text" value={userInfo.user.channel_name || ''} readOnly/>
                     </div>
                 </form>
             </div>

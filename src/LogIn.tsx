@@ -1,26 +1,23 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { useAuth } from './AuthContext';
 import './LogIn.css';
 
 function LogIn() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
+    const { login } = useAuth();
     const navigate = useNavigate();
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         try {
-            const response = await axios.post('http://localhost:3000/login', { email, password });
-            if (response.data.success) {
-                setMessage('Login successful');
-                navigate('/account');
-            } else {
-                setMessage('Invalid email or password');
-            }
-        } catch (error) {
-            setMessage('An error occurred during login');
+            await login(email, password);
+            setMessage('Login successful');
+            navigate('/account');
+        } catch (error: any) {
+            setMessage(error.response?.data?.error || 'An error occurred during login');
             console.error('Login error:', error);
         }
     };

@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../AuthContext.tsx';
 import './Navbar.css';
 import { FaHome, FaHistory, FaUser, FaBars, FaSearch, FaTimes } from 'react-icons/fa';
 
 function Navbar() {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const { isLoggedIn, logout} = useAuth();
     const [isSideNavOpen, setIsSideNavOpen] = useState(false);
     const [isSubscriptionsVisible, setIsSubscriptionsVisible] = useState(false);
     const [subscriptions, setSubscriptions] = useState<string[]>([]);
@@ -31,6 +32,11 @@ function Navbar() {
     const handleHistoryButtonClick = () => {
         navigate('/history');
     };
+
+    const handleLogout = () => {
+        logout();
+        navigate('/');
+    }
 
     const handleSubscriptionsButtonClick = () => {
         if (isSideNavOpen) {
@@ -76,6 +82,7 @@ function Navbar() {
                     </button>
                     <img src="src/assets/ProfilePic.png" alt="Profile Picture" />
                 </div>
+                {isLoggedIn && <button className="logout-button" onClick={handleLogout}>Log Out</button>}
             </div>
             <div className={`side-navbar ${isSideNavOpen ? 'open' : ''}`}>
                 <button className="toggle-button" onClick={handleToggleButtonClick}><FaBars /></button>

@@ -33,8 +33,8 @@ const RegistrationForm: React.FC = () => {
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:3000', formData); // Replace with your backend URL
-            alert(response.data.message);
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/register`, formData); // Replace with your backend URL
+            setError(response.data.message);
         } catch (error: any) {
             setError(error.response?.data?.error || 'An error occurred');
         }
