@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../AuthContext.tsx';
+import {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {useAuth} from '../AuthContext.tsx';
 import './Navbar.css';
-import { FaHome, FaHistory, FaUser, FaBars, FaSearch, FaTimes } from 'react-icons/fa';
+import {FaHome, FaHistory, FaUser, FaBars, FaSearch, FaTimes} from 'react-icons/fa';
 
 function Navbar() {
-    const { isLoggedIn, logout} = useAuth();
+    const {isLoggedIn, user, logout} = useAuth();
     const [isSideNavOpen, setIsSideNavOpen] = useState(false);
     const [isSubscriptionsVisible, setIsSubscriptionsVisible] = useState(false);
     const [subscriptions, setSubscriptions] = useState<string[]>([]);
@@ -73,22 +73,29 @@ function Navbar() {
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                     />
-                    {searchQuery && <FaTimes className="clear-icon" onClick={clearSearch} />}
-                    <button type="submit" className="search-icon"><FaSearch /></button>
+                    {searchQuery && <FaTimes className="clear-icon" onClick={clearSearch}/>}
+                    <button type="submit" className="search-icon"><FaSearch/></button>
                 </form>
                 <div className="auth-button">
                     <button onClick={handleAuthButtonClick}>
                         {isLoggedIn ? 'Account' : 'Log In'}
                     </button>
-                    <img src="src/assets/ProfilePic.png" alt="Profile Picture" />
+                    {isLoggedIn && user?.profile_picture && (
+                        <img
+                            src={typeof user?.profile_picture === 'string' ? `${import.meta.env.VITE_API_URL}${user?.profile_picture}` : 'src/assets/ProfilePic.png'}
+                            alt="Profile Picture"/>
+                    )}
                 </div>
                 {isLoggedIn && <button className="logout-button" onClick={handleLogout}>Log Out</button>}
             </div>
             <div className={`side-navbar ${isSideNavOpen ? 'open' : ''}`}>
-                <button className="toggle-button" onClick={handleToggleButtonClick}><FaBars /></button>
-                <button className="home-button" onClick={handleHomeButtonClick}><FaHome /><span className="button-text">Home</span></button>
-                <button className="history-button" onClick={handleHistoryButtonClick}><FaHistory /><span className="button-text">History</span></button>
-                <button className="subscriptions-button" onClick={handleSubscriptionsButtonClick}><FaUser /><span className="button-text">Subscriptions</span></button>
+                <button className="toggle-button" onClick={handleToggleButtonClick}><FaBars/></button>
+                <button className="home-button" onClick={handleHomeButtonClick}><FaHome/><span
+                    className="button-text">Home</span></button>
+                <button className="history-button" onClick={handleHistoryButtonClick}><FaHistory/><span
+                    className="button-text">History</span></button>
+                <button className="subscriptions-button" onClick={handleSubscriptionsButtonClick}><FaUser/><span
+                    className="button-text">Subscriptions</span></button>
                 <div className="sub-list">
                     {isSubscriptionsVisible && (
                         !isLoggedIn ? (

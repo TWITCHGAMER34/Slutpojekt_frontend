@@ -37,9 +37,9 @@ function Router() {
                 <Route path="/video" element={<VideoPage/>}/>
                 <Route path="/verify" element={<VerifyAccount/>}/>
                 <Route path="/unauthorized" element={<Unathorized/>}/>
+                <Route path="/channel/:channel_name" element={<Channel/>}/>
                 <Route element={<ProtectedRoute/>}>
                     <Route path="/account" element={<Account/>}/>
-                    <Route path="/channel" element={<Channel/>}/>
                     <Route path="/upload" element={<UploadVideo/>}/>
                 </Route>
             </Routes>

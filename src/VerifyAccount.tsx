@@ -30,6 +30,7 @@ const VerifyAccount: React.FC = () => {
         <div className="verify-container">
             <h1>Account Verification</h1>
             <p>{message}</p>
+            <button onClick={() => window.location.href = '/login'}>Log In</button>
         </div>
     );
 };
