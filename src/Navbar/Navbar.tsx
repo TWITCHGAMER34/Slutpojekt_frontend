@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, Link} from 'react-router-dom';
 import {useAuth} from '../AuthContext.tsx';
 import './Navbar.css';
 import {FaHome, FaHistory, FaUser, FaBars, FaSearch, FaTimes} from 'react-icons/fa';
@@ -53,8 +53,12 @@ function Navbar() {
 
     const handleSearch = (event: React.FormEvent) => {
         event.preventDefault();
-        navigate(`/videosearch?query=${searchQuery}`);
+        navigate(`/videosearch?query=${encodeURIComponent(searchQuery)}`);
     };
+
+    const handleUploadButtonClick = () => {
+        navigate('/upload');
+    }
 
     const clearSearch = () => {
         setSearchQuery('');
@@ -77,16 +81,19 @@ function Navbar() {
                     <button type="submit" className="search-icon"><FaSearch/></button>
                 </form>
                 <div className="auth-button">
+                    {isLoggedIn && <button onClick={handleUploadButtonClick}>Upload</button>}
                     <button onClick={handleAuthButtonClick}>
                         {isLoggedIn ? 'Account' : 'Log In'}
                     </button>
                     {isLoggedIn && user?.profile_picture && (
-                        <img
-                            src={typeof user?.profile_picture === 'string' ? `${import.meta.env.VITE_API_URL}${user?.profile_picture}` : 'src/assets/ProfilePic.png'}
-                            alt="Profile Picture"/>
+                        <Link to={"/channel/" + user?.username}>
+                            <img
+                                src={`${import.meta.env.VITE_API_URL}${user?.profile_picture}`}
+                                alt="Profile Picture"/>
+                        </Link>
                     )}
+                    {isLoggedIn && <button className="logout-button" onClick={handleLogout}>Log Out</button>}
                 </div>
-                {isLoggedIn && <button className="logout-button" onClick={handleLogout}>Log Out</button>}
             </div>
             <div className={`side-navbar ${isSideNavOpen ? 'open' : ''}`}>
                 <button className="toggle-button" onClick={handleToggleButtonClick}><FaBars/></button>

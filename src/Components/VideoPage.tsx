@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import styles from "./VideoPage.module.css";
 
@@ -14,6 +14,10 @@ interface VideoData {
         created_at: string;
         user_id: string;
     };
+    user: {
+        username: string;
+        profile_picture: string;
+    };
 }
 
 const VideoPage: React.FC = () => {
@@ -21,16 +25,16 @@ const VideoPage: React.FC = () => {
     const [videoData, setVideoData] = useState<VideoData | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const [username, setUsername] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchVideoData = async () => {
             try {
                 const response = await axios.get(`${import.meta.env.VITE_API_URL}/getVideo/${id}`);
-                setVideoData(response.data);
-                console.log("Video data:", response.data);
                 const userResponse = await axios.get(`${import.meta.env.VITE_API_URL}/getUser/${response.data.video.user_id}`);
-                setUsername(userResponse.data.user.username);
+                setVideoData({
+                    video: response.data.video,
+                    user: userResponse.data.user,
+                });
             } catch (error) {
                 setError("Error fetching video data");
                 console.error("Error fetching video data:", error);
@@ -39,7 +43,29 @@ const VideoPage: React.FC = () => {
             }
         };
 
+        const addToHistoryAndIncrementViews = async () => {
+            try {
+                await axios.post(`${import.meta.env.VITE_API_URL}/history/${id}`);
+                await axios.post(`${import.meta.env.VITE_API_URL}/incrementViews/${id}`);
+                setVideoData((prevData) => {
+                    if (prevData) {
+                        return {
+                            ...prevData,
+                            video: {
+                                ...prevData.video,
+                                views_count: prevData.video.views_count + 1,
+                            },
+                        };
+                    }
+                    return prevData;
+                });
+            } catch (error) {
+                console.error('Error adding video to history or incrementing views:', error);
+            }
+        };
+
         fetchVideoData();
+        addToHistoryAndIncrementViews();
     }, [id]);
 
     const handleLike = async () => {
@@ -86,8 +112,6 @@ const VideoPage: React.FC = () => {
         return <div>No video data found</div>;
     }
 
-    console.log("Video URL:", videoData.video.url);
-
     return (
         <div className={styles.fullPage}>
             <div className={styles.container}>
@@ -101,8 +125,12 @@ const VideoPage: React.FC = () => {
                 </div>
 
                 <div className={styles.meta}>
-                    <p>Uploaded by: {username || "Unknown"}</p>
-                    <p>Published: {new Date(videoData.video.created_at).toLocaleDateString()}</p>
+                    <img src={`${import.meta.env.VITE_API_URL}${videoData.user.profile_picture}`} alt="Profile" className={styles.profilePicture} />
+                    <p>
+                        Uploaded by: <Link to={`/channel/${videoData.user.username}`}> {videoData.user.username}</Link>
+                        <br />
+                        Published: {new Date(videoData.video.created_at).toLocaleDateString()}
+                    </p>
                 </div>
 
                 <div className={styles.buttons}>

@@ -12,6 +12,9 @@ import VerifyAccount from './VerifyAccount';
 import {AuthProvider} from './AuthContext';
 import ProtectedRoute from './ProtectedRoute';
 import Unathorized from "./unathorized/unathorized.tsx";
+import History from './Components/History.tsx';
+import VideoSearch from './VideoSearch';
+
 
 
 
@@ -38,6 +41,8 @@ function Router() {
                 <Route path="/verify" element={<VerifyAccount/>}/>
                 <Route path="/unauthorized" element={<Unathorized/>}/>
                 <Route path="/channel/:username" element={<Channel/>}/>
+                <Route path="/history" element={<History/>}/>
+                <Route path="/videosearch" element={<VideoSearch />} />
                 <Route element={<ProtectedRoute/>}>
                     <Route path="/account" element={<Account/>}/>
                     <Route path="/upload" element={<UploadVideo/>}/>

@@ -5,9 +5,9 @@ import './HomePage.css';
 interface VideoData {
     id: string;
     title: string;
-    thumbnailUrl: string;
+    thumbnail: string;
     username: string;
-    views: number;
+    views_count: number;
     created_at: string;
 }
 
@@ -51,12 +51,12 @@ function HomePage() {
                 <div className="card" key={video.id}>
                     <img
                         className="thumbnail"
-                        src={video.thumbnailUrl}
+                        src={`${import.meta.env.VITE_API_URL}` + video.thumbnail}
                         alt={video.title}
                     />
                     <h2 className="title">{video.title}</h2>
                     <h3 className="username">{video.username}</h3>
-                    <h3 className="views">{video.views} views</h3>
+                    <h3 className="views">{video.views_count} views</h3>
                     <h3 className="date">{new Date(video.created_at).toLocaleDateString()}</h3>
                     <a href={`http://localhost:5173/video/${video.id}`} className="fillParent"></a>
                 </div>

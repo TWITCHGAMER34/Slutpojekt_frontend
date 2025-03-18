@@ -8,8 +8,14 @@ interface ChannelData {
     channelInfo: {
         username: string;
         profile_picture: string;
-        // Add other fields as needed
-    },
+    };
+    videos: VideoData[];
+}
+
+interface VideoData {
+    id: number;
+    title: string;
+    thumbnail: string;
 }
 
 function Channel() {
@@ -38,6 +44,23 @@ function Channel() {
         }
     }, [isLoggedIn, user, username]);
 
+    const handleDelete = async (videoId: number) => {
+        try {
+            await axios.delete(`${import.meta.env.VITE_API_URL}/video/${videoId}`);
+            setChannelData((prevData) => {
+                if (prevData) {
+                    return {
+                        ...prevData,
+                        videos: prevData.videos.filter(video => video.id !== videoId),
+                    };
+                }
+                return prevData;
+            });
+        } catch (error) {
+            console.error('Error deleting video:', error);
+        }
+    };
+
     if (!channelData) {
         return <div>Loading...</div>;
     }
@@ -64,7 +87,17 @@ function Channel() {
             <div className="user-videos">
                 <h1>Videos</h1>
                 <div className="videos">
-                    {/* Design for the videos */}
+                    {channelData.videos && channelData.videos.map(video => (
+                        <div key={video.id} className="video-item">
+                            <Link to={`/video/${video.id}`}>
+                                <img src={`${import.meta.env.VITE_API_URL}${video.thumbnail}`} alt={video.title} className="video-thumbnail" />
+                                <p className="video-title">{video.title}</p>
+                            </Link>
+                            {isOwner && (
+                                <button onClick={() => handleDelete(video.id)} className="delete-button">Delete</button>
+                            )}
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>

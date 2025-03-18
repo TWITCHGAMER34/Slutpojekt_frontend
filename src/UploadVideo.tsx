@@ -2,19 +2,23 @@ import { useState } from "react";
 import axios from "axios";
 import * as React from "react";
 import styles from "./Components/UploadVideo.module.css";
-import {useAuth} from "./AuthContext.tsx";
 
 const UploadVideo: React.FC = () => {
-    const { isLoggedIn, user } = useAuth();
     const [videoFile, setVideoFile] = useState<File | null>(null);
     const [title, setTitle] = useState<string>("");
     const [description, setDescription] = useState<string>("");
     const [tags, setTags] = useState<string>("");
     const [uploadProgress, setUploadProgress] = useState<number>(0);
+    const [thumbnail, setThumbnail] = useState<File | null>(null);
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
         if (file) setVideoFile(file);
+    };
+
+    const handleThumbnailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (file) setThumbnail(file);
     };
 
     const handleUpload = async () => {
@@ -25,6 +29,9 @@ const UploadVideo: React.FC = () => {
         formData.append("title", title);
         formData.append("description", description);
         formData.append("tags", tags);
+        if (thumbnail) {
+            formData.append("thumbnail", thumbnail);
+        }
 
         try {
             const response = await axios.post(`${import.meta.env.VITE_API_URL}/uploadVideo`, formData, {
@@ -36,12 +43,9 @@ const UploadVideo: React.FC = () => {
                     }
                 },
             });
-
-            alert("Upload successful!");
             console.log("Server Response:", response.data);
         } catch (error) {
             console.error("Upload failed:", error);
-            alert("Upload failed.");
         }
     };
 
@@ -49,6 +53,8 @@ const UploadVideo: React.FC = () => {
         <div className={styles.uploadContainer}>
             <h2>Upload Video</h2>
             <input type="file" accept="video/*" onChange={handleFileChange} />
+            <label>Thumbnail:</label>
+            <input type="file" accept="image/*" onChange={handleThumbnailChange} />
             <input type="text" placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} />
             <textarea placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)} />
             <input type="text" placeholder="Tags (comma separated)" value={tags} onChange={(e) => setTags(e.target.value)} />
