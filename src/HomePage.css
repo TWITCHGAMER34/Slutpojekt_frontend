@@ -1,19 +1,18 @@
+
 #home-page{
-    background-color: #0056b3;
-    width: 90vw;
-    height: 90vh;
-    padding: 5vh 5vw 5vh;
-    overflow: scroll;
+    background-color: #6200b3;
+    width: 99vw;
+    height: fit-content;
+    margin-top: 12vh;
 
     display: flex;
     justify-content: right;
     flex-wrap: wrap;
+
 }
 
 .card{
-    border-style: solid;
-    border-color: #ffffff;
-    height: 35%;
+    height: 35vh;
     width: 30%;
     margin: 1% 1% 1%;
     padding: 0;
@@ -45,6 +44,17 @@
     height: 70%;
 }
 
+.border{
+    border-style: solid;
+    border-color: #ffffff;
+
+    width: 99%;
+    height: 28%;
+
+    position: absolute;
+    top: 70%;
+}
+
 .title{
     position: absolute;
     margin: 0 5% 0;
@@ -69,9 +79,4 @@
     margin: 0 5% 0;
     top: 85%;
     left: 60%;
-}
-
-#root{
-    margin:0;
-    padding: 0;
 }
