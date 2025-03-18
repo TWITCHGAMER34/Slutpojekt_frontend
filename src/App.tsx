@@ -34,10 +34,10 @@ function Router() {
                 <Route path="/" element={<HomePage/>}/>
                 <Route path="/login" element={<LogIn/>}/>
                 <Route path="/register" element={<Register/>}/>
-                <Route path="/video" element={<VideoPage/>}/>
+                <Route path="/video/:id" element={<VideoPage/>}/>
                 <Route path="/verify" element={<VerifyAccount/>}/>
                 <Route path="/unauthorized" element={<Unathorized/>}/>
-                <Route path="/channel/:channel_name" element={<Channel/>}/>
+                <Route path="/channel/:username" element={<Channel/>}/>
                 <Route element={<ProtectedRoute/>}>
                     <Route path="/account" element={<Account/>}/>
                     <Route path="/upload" element={<UploadVideo/>}/>

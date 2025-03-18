@@ -1,27 +1,29 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from './AuthContext';
 import './Channel.css';
 
 interface ChannelData {
-    username: string;
-    profile_picture: string;
-    channel_name: string;
-    // Add other fields as needed
+    channelInfo: {
+        username: string;
+        profile_picture: string;
+        // Add other fields as needed
+    },
 }
 
 function Channel() {
     const { isLoggedIn, user } = useAuth();
-    const { channel_name } = useParams<{ channel_name: string }>();
+    const { username } = useParams<{ username: string }>();
     const [channelData, setChannelData] = useState<ChannelData | null>(null);
     const [isOwner, setIsOwner] = useState(false);
 
     useEffect(() => {
         const fetchChannelData = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_API_URL}/channel/${channel_name}`);
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/channel/${username}`);
                 setChannelData(response.data);
+                console.log(response.data);
             } catch (error) {
                 console.error('Error fetching channel data:', error);
             }
@@ -29,21 +31,12 @@ function Channel() {
 
         fetchChannelData();
 
-        if (isLoggedIn && user && user.channel_name === channel_name) {
+        if (isLoggedIn && user && user.username === username) {
             setIsOwner(true);
         } else {
             setIsOwner(false);
         }
-    }, [isLoggedIn, user, channel_name]);
-
-    if (channel_name === 'test') {
-        return (
-            <div>
-                <h1>This is the test page</h1>
-                {/* Add more content for the test page here */}
-            </div>
-        );
-    }
+    }, [isLoggedIn, user, username]);
 
     if (!channelData) {
         return <div>Loading...</div>;
@@ -55,15 +48,15 @@ function Channel() {
                 <div className="column"></div>
                 <div className="column">
                     <img
-                        src={typeof channelData.profile_picture === 'string' ? `${import.meta.env.VITE_API_URL}${user.profile_picture}` : 'src/assets/ProfilePic.png'}
+                        src={`${import.meta.env.VITE_API_URL}${channelData.channelInfo.profile_picture}`}
                         alt="Profile Picture" className="profile-picture" />
-                    <h1>{channelData.channel_name}</h1>
+                    <h1>{channelData.channelInfo.username}</h1>
                 </div>
                 <div className="column Cthird-column">
                     {isOwner && (
                         <>
-                            <button onClick={() => window.location.href = '/account'}>View Account</button>
-                            <button onClick={() => window.location.href = '/upload'}>Upload Video</button>
+                            <Link to="/upload">Upload Video</Link>
+                            <Link to="/account">Account</Link>
                         </>
                     )}
                 </div>

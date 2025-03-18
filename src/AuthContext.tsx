@@ -8,8 +8,8 @@ export interface User {
     password: string;
     firstname: string;
     lastname: string;
-    DOB: unknown;
-    channel_name: any;
+    DOB: number;
+    description: string;
     verified: number;
     profile_picture: string;
     token: string;

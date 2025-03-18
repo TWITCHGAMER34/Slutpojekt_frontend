@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from './AuthContext';
 import './Account.css';
@@ -11,7 +12,6 @@ function Account() {
         DOB: '',
         email: '',
         username: '',
-        channel_name: '',
         description: '',
         profilePicture: '' as string | File
     });
@@ -55,10 +55,10 @@ function Account() {
                     <img
                         src={typeof user?.profile_picture === 'string' ? `${import.meta.env.VITE_API_URL}${user?.profile_picture}` : 'src/assets/ProfilePic.png'}
                         alt="Profile Picture" className="profile-picture" />
-                    <h1>{user?.channel_name || "Channel Name"}</h1>
+                    <h1>{user?.username || "Channel Name"}</h1>
                 </div>
                 <div className="column Cthird-column">
-                    <button onClick={() => window.location.href = `/channel/${user?.channel_name}`}>View Channel</button>
+                    <Link to={"/channel/" + user?.username}>Go to Channel</Link>
                 </div>
             </div>
 
@@ -72,7 +72,7 @@ function Account() {
                     <div>
                         <label>Description:</label>
                         <textarea
-                            value={user?.description || ''}
+                            value={userData.description || ''}
                             onChange={handleDescriptionChange}
                             rows={5}
                             maxLength={1000}
@@ -106,10 +106,6 @@ function Account() {
                     <div>
                         <label>Username:</label>
                         <input type="text" value={user?.username || ''} readOnly />
-                    </div>
-                    <div>
-                        <label>Channel Name:</label>
-                        <input type="text" value={user?.channel_name || ''} readOnly />
                     </div>
                 </form>
             </div>

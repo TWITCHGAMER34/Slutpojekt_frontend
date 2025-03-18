@@ -10,7 +10,6 @@ interface FormData {
     password: string;
     confirm_password: string;
     username: string;
-    channel_name: string;
 }
 
 const RegistrationForm: React.FC = () => {
@@ -22,7 +21,6 @@ const RegistrationForm: React.FC = () => {
         password: '',
         confirm_password: '',
         username: '',
-        channel_name: ''
     });
     const [error, setError] = useState<string | null>(null);
 
@@ -52,7 +50,6 @@ const RegistrationForm: React.FC = () => {
                     <input type="password" name="password" placeholder="Password" onChange={handleChange} required/>
                     <input type="password" name="confirm_password" placeholder="Confirm Password" onChange={handleChange} required/>
                     <input type="text" name="username" placeholder="Username" onChange={handleChange} required/>
-                    <input type="text" name="channel_name" placeholder="Channel Name" onChange={handleChange} required/>
                     <div> <button type="submit">Register</button> </div>
                     {error && <p>{error}</p>}
                 </form>
