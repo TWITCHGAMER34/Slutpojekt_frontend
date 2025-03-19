@@ -1,3 +1,17 @@
+a {
+    color: white;
+    text-decoration: none;
+    border: 0.1vw solid white;
+    display: inline-block;
+    padding: 0.5vw;
+    border-radius: 0.5vw;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: white;
+}
+
 .account-wrapper {
     display: flex;
     flex-direction: column;
@@ -17,7 +31,6 @@
     align-items: center;
     width: 100vw;
     padding: 1rem;
-    margin-top: 30rem !important;
 
     .column {
         flex: 1;
@@ -25,6 +38,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+
 
         .profile-picture {
             width: 150px;
@@ -45,6 +59,7 @@
     .third-column {
         align-items: flex-start !important;
         margin-top: 10rem;
+
 
         button {
             font-size: large;
@@ -68,7 +83,7 @@ button {
     .account-info {
         width: 80%;
         justify-items: start;
-        border: 3px solid #ababab; /* Ensure the border is visible */
+        border: 3px solid white; /* Ensure the border is visible */
         border-radius: 8px; /* Add border radius */
         padding: 1rem; /* Add padding for better visibility */
         margin-top: 1rem;
@@ -95,17 +110,29 @@ button {
                     border: 1px solid #ccc;
                     border-radius: 4px;
                 }
+
             }
+
+            .description-textarea {
+                border-color: white;
+            }
+
 
             .char-limit {
                 font-size: 0.875rem; /* Small font size */
-                color: #666; /* Grey color */
+                color: white; /* Grey color */
                 margin-top: -0.75rem; /* Small margin at the top */
                 align-self: flex-end;
             }
 
             button {
                 align-self: flex-end;
+                color: white;
+                background: none;
+            }
+
+            button:hover {
+                text-decoration: underline;
             }
         }
 
