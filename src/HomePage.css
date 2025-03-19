@@ -1,12 +1,19 @@
 
+body{
+    scrollbar-color: #ffffff #23033e;
+}
+
+
 #home-page{
-    background-color: #6200b3;
-    width: 99vw;
+    background-color: #23033e;
+    width: 94vw;
     height: fit-content;
+    min-height: 100vh;
     margin-top: 12vh;
 
+    padding-left: 5vw;
+
     display: flex;
-    justify-content: right;
     flex-wrap: wrap;
 
 }
@@ -19,6 +26,16 @@
 
     position: relative;
     overflow: hidden;
+
+
+
+    h2{
+        font-size: 3vh;
+    }
+
+    h3{
+        font-size: 2vh;
+    }
 }
 
 .fillParent{
@@ -34,6 +51,7 @@
 
 .thumbnail{
     position: absolute;
+    color: #ffffff;
     display: block;
     object-fit: contain;
     background-color: #1a1a1a;
@@ -47,6 +65,7 @@
 .border{
     border-style: solid;
     border-color: #ffffff;
+    border-radius: 2%;
 
     width: 99%;
     height: 28%;
@@ -57,26 +76,30 @@
 
 .title{
     position: absolute;
+    color: #ffffff;
     margin: 0 5% 0;
     top: 70%;
 }
 
 .username{
     position: absolute;
+    color: #ffffff;
     margin: 0 5% 0;
     top: 85%;
 }
 
 .views{
     position: absolute;
+    color: #ffffff;
     margin: 0 5% 0;
-    top: 85%;
-    left: 30%;
+    top: 90%;
+
 }
 
 .date{
     position: absolute;
+    color: #ffffff;
     margin: 0 5% 0;
-    top: 85%;
-    left: 60%;
+    top: 90%;
+    left: 30%;
 }
