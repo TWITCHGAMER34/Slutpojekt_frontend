@@ -18,6 +18,13 @@ interface VideoData {
         username: string;
         profile_picture: string;
     };
+    comments: {
+        id: string;
+        user_id: string;
+        comment: string;
+        created_at: string;
+        username: string;
+    }[];
 }
 
 const VideoPage: React.FC = () => {
@@ -25,15 +32,19 @@ const VideoPage: React.FC = () => {
     const [videoData, setVideoData] = useState<VideoData | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [showFullDescription, setShowFullDescription] = useState(false);
+    const [comment, setComment] = useState<string>("");
 
     useEffect(() => {
         const fetchVideoData = async () => {
             try {
                 const response = await axios.get(`${import.meta.env.VITE_API_URL}/getVideo/${id}`);
                 const userResponse = await axios.get(`${import.meta.env.VITE_API_URL}/getUser/${response.data.video.user_id}`);
+                const commentsResponse = await axios.get(`${import.meta.env.VITE_API_URL}/getComments/${id}`);
                 setVideoData({
                     video: response.data.video,
                     user: userResponse.data.user,
+                    comments: commentsResponse.data.comments,
                 });
             } catch (error) {
                 setError("Error fetching video data");
@@ -100,6 +111,40 @@ const VideoPage: React.FC = () => {
         }
     };
 
+    const toggleDescription = () => {
+        setShowFullDescription(!showFullDescription);
+    };
+
+    const handleCommentSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!comment) return;
+
+        try {
+            await axios.post(`${import.meta.env.VITE_API_URL}/commentVideo/${id}`, { comment });
+            setVideoData((prevData) => {
+                if (prevData) {
+                    return {
+                        ...prevData,
+                        comments: [
+                            ...prevData.comments,
+                            {
+                                id: new Date().toISOString(),
+                                user_id: "currentUserId", // Replace with actual user ID
+                                comment,
+                                created_at: new Date().toISOString(),
+                                username: "currentUsername", // Replace with actual username
+                            },
+                        ],
+                    };
+                }
+                return prevData;
+            });
+            setComment("");
+        } catch (error) {
+            console.error("Error posting comment:", error);
+        }
+    };
+
     if (loading) {
         return <div>Loading...</div>;
     }
@@ -111,6 +156,8 @@ const VideoPage: React.FC = () => {
     if (!videoData) {
         return <div>No video data found</div>;
     }
+
+    const description = showFullDescription ? videoData.video.description : videoData.video.description.slice(0, 310);
 
     return (
         <div className={styles.fullPage}>
@@ -140,7 +187,33 @@ const VideoPage: React.FC = () => {
 
                 <div className={styles.description}>
                     <h3>Description</h3>
-                    <p>{videoData.video.description}</p>
+                    <p>{description}{!showFullDescription && videoData.video.description.length > 310 && "..."}</p>
+                    {videoData.video.description.length > 310 && (
+                        <button onClick={toggleDescription} className={styles.readMoreButton}>
+                            {showFullDescription ? "Read Less" : "Read More"}
+                        </button>
+                    )}
+                </div>
+
+                <div className={styles.commentsSection}>
+                    <h3>Comments</h3>
+                    <form onSubmit={handleCommentSubmit} className={styles.commentForm}>
+                        <textarea
+                            value={comment}
+                            onChange={(e) => setComment(e.target.value)}
+                            placeholder="Add a comment"
+                            required
+                        />
+                        <button type="submit">Post Comment</button>
+                    </form>
+                    <div className={styles.commentsList}>
+                        {videoData.comments.map((comment) => (
+                            <div key={comment.id} className={styles.comment}>
+                                <p><strong>{comment.username}</strong> {new Date(comment.created_at).toLocaleDateString()} {new Date(comment.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                                <p>{comment.comment}</p>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>

@@ -12,9 +12,11 @@ function Account() {
         DOB: '',
         email: '',
         username: '',
-        description: '',
+        bio: '',
         profilePicture: '' as string | File
     });
+    const [error, setError] = useState<string | null>(null);
+    const [charCount, setCharCount] = useState(0);
 
     const handleProfilePictureChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files) {
@@ -23,19 +25,36 @@ function Account() {
     };
 
     const handleDescriptionChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setUserData({ ...userData, description: event.target.value });
+        const value = event.target.value;
+        if (value.length <= 400) {
+            setUserData({ ...userData, bio: value });
+            setCharCount(value.length);
+        }
     };
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
+        setError(null);
+
         const formData = new FormData();
-        formData.append('profile_picture', userData.profilePicture as File);
+        if (userData.profilePicture) {
+            formData.append('profile_picture', userData.profilePicture as File);
+        }
+        if (userData.bio) {
+            formData.append('description', userData.bio);
+        }
 
         try {
-            await axios.post(`${import.meta.env.VITE_API_URL}/account/uploadProfilePicture`, formData, {});
-            alert('Profile picture uploaded successfully');
+            if (userData.profilePicture) {
+                await axios.post(`${import.meta.env.VITE_API_URL}/account/uploadProfilePicture`, formData, {});
+            }
+            if (userData.bio) {
+                await axios.post(`${import.meta.env.VITE_API_URL}/updateDescription`, { bio: userData.bio });
+            }
+            alert('Profile picture and/or description updated successfully');
         } catch (error) {
-            console.error('Error uploading profile picture', error);
+            console.error('Error updating profile picture or description', error);
+            setError('Error updating profile picture or description');
         }
     };
 
@@ -72,16 +91,17 @@ function Account() {
                     <div>
                         <label>Description:</label>
                         <textarea
-                            value={userData.description || ''}
+                            value={userData.bio || ''}
                             onChange={handleDescriptionChange}
                             rows={5}
-                            maxLength={1000}
+                            maxLength={400}
                             className="description-textarea"
                         />
+                        <p className="char-limit">{charCount}/400 characters</p>
                     </div>
-                    <p className="char-limit">You can write up to 1000 characters.</p>
                     <button type="submit">Save Changes</button>
                 </form>
+                {error && <p className="error-message">{error}</p>}
             </div>
 
             <div className="account-info">

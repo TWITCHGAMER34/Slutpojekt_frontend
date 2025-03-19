@@ -1,13 +1,14 @@
-import { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import {useEffect, useState} from 'react';
+import {useParams, Link} from 'react-router-dom';
 import axios from 'axios';
-import { useAuth } from './AuthContext';
+import {useAuth} from './AuthContext';
 import './Channel.css';
 
 interface ChannelData {
     channelInfo: {
         username: string;
         profile_picture: string;
+        bio: string; // Add bio field
     };
     videos: VideoData[];
 }
@@ -19,8 +20,8 @@ interface VideoData {
 }
 
 function Channel() {
-    const { isLoggedIn, user } = useAuth();
-    const { username } = useParams<{ username: string }>();
+    const {isLoggedIn, user} = useAuth();
+    const {username} = useParams<{ username: string }>();
     const [channelData, setChannelData] = useState<ChannelData | null>(null);
     const [isOwner, setIsOwner] = useState(false);
 
@@ -72,8 +73,12 @@ function Channel() {
                 <div className="column">
                     <img
                         src={`${import.meta.env.VITE_API_URL}${channelData.channelInfo.profile_picture}`}
-                        alt="Profile Picture" className="profile-picture" />
+                        alt="Profile Picture" className="profile-picture"/>
                     <h1>{channelData.channelInfo.username}</h1>
+                    <div className={"bio"}>
+                        <h2>Bio</h2>
+                        <p>{channelData.channelInfo.bio}</p>
+                    </div>
                 </div>
                 <div className="column Cthird-column">
                     {isOwner && (
@@ -84,13 +89,15 @@ function Channel() {
                     )}
                 </div>
             </div>
+
             <div className="user-videos">
                 <h1>Videos</h1>
                 <div className="videos">
                     {channelData.videos && channelData.videos.map(video => (
                         <div key={video.id} className="video-item">
                             <Link to={`/video/${video.id}`}>
-                                <img src={`${import.meta.env.VITE_API_URL}${video.thumbnail}`} alt={video.title} className="video-thumbnail" />
+                                <img src={`${import.meta.env.VITE_API_URL}${video.thumbnail}`} alt={video.title}
+                                     className="video-thumbnail"/>
                                 <p className="video-title">{video.title}</p>
                             </Link>
                             {isOwner && (
