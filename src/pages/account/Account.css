@@ -1,24 +1,28 @@
-a {
-    color: white;
-    text-decoration: none;
-    border: 0.1vw solid white;
-    display: inline-block;
-    padding: 0.5vw;
-    border-radius: 0.5vw;
-}
 
-a:hover {
-    text-decoration: underline;
-    color: white;
-}
 
 .account-wrapper {
+    background-color: #23033e;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100vw;
     margin-top: 5rem;
+    color: #ffffff;
+
+    a {
+        color: white;
+        text-decoration: none;
+        border: 0.1vw solid white;
+        display: inline-block;
+        padding: 0.5vw;
+        border-radius: 0.5vw;
+    }
+
+    a:hover {
+        text-decoration: underline;
+        color: white;
+    }
 }
 
 .login-prompt {
@@ -109,12 +113,17 @@ button {
                     width: 99%;
                     border: 1px solid #ccc;
                     border-radius: 4px;
+
+                    background-color: rgba(255, 127, 80, 0);
+                    color: #ffffff;
                 }
 
             }
 
             .description-textarea {
                 border-color: white;
+                background-color: rgba(255, 127, 80, 0);
+                color: #ffffff;
             }
 
 

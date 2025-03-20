@@ -2,13 +2,11 @@ import {useState} from 'react';
 import {useNavigate, Link} from 'react-router-dom';
 import {useAuth} from '../auth/context/AuthContext.tsx';
 import './Navbar.css';
-import {FaHome, FaHistory, FaUser, FaBars, FaSearch, FaTimes} from 'react-icons/fa';
+import {FaHome, FaHistory, FaBars, FaSearch, FaTimes} from 'react-icons/fa';
 
 function Navbar() {
     const {isLoggedIn, user, logout} = useAuth();
     const [isSideNavOpen, setIsSideNavOpen] = useState(false);
-    const [isSubscriptionsVisible, setIsSubscriptionsVisible] = useState(false);
-    const [subscriptions, setSubscriptions] = useState<string[]>([]);
     const [searchQuery, setSearchQuery] = useState('');
     const navigate = useNavigate();
 
@@ -22,7 +20,6 @@ function Navbar() {
 
     const handleToggleButtonClick = () => {
         setIsSideNavOpen(!isSideNavOpen);
-        setIsSubscriptionsVisible(false); // Hide subscriptions when closing the navbar
     };
 
     const handleHomeButtonClick = () => {
@@ -38,18 +35,7 @@ function Navbar() {
         navigate('/');
     }
 
-    const handleSubscriptionsButtonClick = () => {
-        if (isSideNavOpen) {
-            if (isLoggedIn) {
-                // Fetch and display subscriptions
-                setSubscriptions(['Channel 1', 'Channel 2', 'Channel 3']); // Example subscriptions
-            } else {
-                // Display login prompt
-                setSubscriptions([]);
-            }
-            setIsSubscriptionsVisible(!isSubscriptionsVisible); // Toggle visibility
-        }
-    };
+
 
     const handleSearch = (event: React.FormEvent) => {
         event.preventDefault();
@@ -101,28 +87,9 @@ function Navbar() {
                     className="button-text">Home</span></button>
                 <button className="history-button" onClick={handleHistoryButtonClick}><FaHistory/><span
                     className="button-text">History</span></button>
-                <button className="subscriptions-button" onClick={handleSubscriptionsButtonClick}><FaUser/><span
-                    className="button-text">Subscriptions</span></button>
-                <div className="sub-list">
-                    {isSubscriptionsVisible && (
-                        !isLoggedIn ? (
-                            <div className="login-prompt">
-                                <p>Logga in om du vill gilla videor, kommentera och prenumerera.</p>
-                                <button onClick={() => navigate('/login')}>Logga in</button>
-                            </div>
-                        ) : (
-                            <div className="subscriptions-list">
-                                <ul>
-                                    {subscriptions.map((sub, index) => (
-                                        <li key={index}>{sub}</li>
-                                    ))}
-                                </ul>
-                            </div>
-                        )
-                    )}
+
                 </div>
             </div>
-        </div>
     );
 }
 
