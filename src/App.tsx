@@ -1,19 +1,19 @@
 import './App.css'
 
 import {Route, Routes} from 'react-router-dom';
-import HomePage from "./HomePage.tsx";
-import LogIn from "./LogIn.tsx";
-import Register from "./Register.tsx";
-import Account from "./Account.tsx";
-import Channel from "./Channel.tsx";
-import UploadVideo from './UploadVideo.tsx';
-import VideoPage from "./Components/VideoPage.tsx";
-import VerifyAccount from './VerifyAccount';
-import {AuthProvider} from './AuthContext';
-import ProtectedRoute from './ProtectedRoute';
-import Unathorized from "./unathorized/unathorized.tsx";
-import History from './Components/History.tsx';
-import VideoSearch from './VideoSearch';
+import HomePage from "./pages/home/HomePage.tsx";
+import LogIn from "./auth/login/LogIn.tsx";
+import Register from "./auth/register/Register.tsx";
+import Account from "./pages/account/Account.tsx";
+import Channel from "./pages/channel/Channel.tsx";
+import UploadVideo from './pages/upload/UploadVideo.tsx';
+import VideoPage from "./pages/video/VideoPage.tsx";
+import VerifyAccount from './auth/verify/VerifyAccount.tsx';
+import {AuthProvider} from './auth/context/AuthContext.tsx';
+import ProtectedRoute from './auth/context/ProtectedRoute.tsx';
+import Unathorized from "./pages/unathorized/unathorized.tsx";
+import History from './pages/history/History.tsx';
+import VideoSearch from './pages/videoSearch/VideoSearch.tsx';
 
 
 

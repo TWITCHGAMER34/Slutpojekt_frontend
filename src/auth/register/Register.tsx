@@ -54,7 +54,7 @@ const RegistrationForm: React.FC = () => {
                     {error && <p>{error}</p>}
                 </form>
             </div>
-            <a href="/login">Already have an account?</a>
+            <a href="/auth/LogIn">Already have an account?</a>
         </div>
     );
 };

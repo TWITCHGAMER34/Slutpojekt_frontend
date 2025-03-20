@@ -2,7 +2,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import App from './App';
-import { AuthProvider } from './AuthContext';
+import { AuthProvider } from './auth/context/AuthContext.tsx';
 import axios from "axios";
 
 axios.defaults.withCredentials = true;

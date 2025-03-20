@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import * as React from "react";
-import styles from "./Components/UploadVideo.module.css";
+import styles from "./UploadVideo.module.css";
 
 const UploadVideo: React.FC = () => {
     const [videoFile, setVideoFile] = useState<File | null>(null);

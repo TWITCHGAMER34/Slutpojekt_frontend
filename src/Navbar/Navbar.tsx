@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import {useNavigate, Link} from 'react-router-dom';
-import {useAuth} from '../AuthContext.tsx';
+import {useAuth} from '../auth/context/AuthContext.tsx';
 import './Navbar.css';
 import {FaHome, FaHistory, FaUser, FaBars, FaSearch, FaTimes} from 'react-icons/fa';
 
