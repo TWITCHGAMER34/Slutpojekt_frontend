@@ -11,10 +11,12 @@
     align-items: center; /* Center items vertically */
     position: fixed;
     top: 0;
-    padding: 0 5rem;
+    margin-left: 3vw;
+    padding-left: 3vw;
+    padding-right: 2vw;
     background-image: linear-gradient(purple, #23033e);
     color: white;
-    width: 90vw;
+    width: 92vw;
     height: 12vh;
     z-index: 1;
 }
@@ -70,6 +72,8 @@
     font-size: 1.2rem;
     padding: 0.5rem 0.75rem 0.4rem 0.75rem;
 
+
+
     background: none;
     color: #ffffff;
 }
@@ -108,7 +112,7 @@
     top: 0;
     left: 0;
     height: 100%;
-    width: 50px; /* Narrow width to show only icons */
+    width: 3vw; /* Narrow width to show only icons */
     background-color: #444;
     color: white;
     transition: width 0.3s ease;
@@ -116,21 +120,32 @@
 }
 
 .side-navbar.open {
-    width: 200px; /* Full width when open */
+    width: 12vw; /* Full width when open */
+    svg{
+        position: relative;
+        left: 0;
+    }
 }
+
+
 
 .side-navbar button {
     display: flex;
     align-items: center;
-    padding: 1rem;
+    padding: 1vh 0.2vw 1vh;
     background: none;
     border: none;
     color: white;
     text-align: left;
     cursor: pointer;
     position: relative;
-}
+    font-size: 1.5vw;
 
+    svg{
+       position: relative;
+        left: 25%;
+    }
+}
 .side-navbar .button-text {
     display: none;
     margin-left: 1rem;
@@ -142,7 +157,7 @@
 
 .side-navbar .icon {
     position: absolute;
-    left: 1rem;
+    left: 5px;
 }
 
 .sub-list {

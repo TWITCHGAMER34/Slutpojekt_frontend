@@ -9,6 +9,7 @@ body{
     width: 94vw;
     height: fit-content;
     min-height: 100vh;
+    margin-left: 1vw;
     margin-top: 12vh;
 
     padding-left: 5vw;
@@ -30,11 +31,11 @@ body{
 
 
     h2{
-        font-size: 3vh;
+        font-size: 1.5vw;
     }
 
     h3{
-        font-size: 2vh;
+        font-size: 1vw;
     }
 }
 
@@ -63,9 +64,9 @@ body{
 }
 
 .border{
-    border-style: solid;
+    border-style: hidden solid solid solid;
+    border-radius: 0 0 2px 2px;
     border-color: #ffffff;
-    border-radius: 2%;
 
     width: 99%;
     height: 28%;

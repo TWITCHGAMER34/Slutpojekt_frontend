@@ -54,6 +54,7 @@ function HomePage() {
                         src={`${import.meta.env.VITE_API_URL}` + video.thumbnail}
                         alt={video.title}
                     />
+                    <div className={"border"}></div>
                     <h2 className="title">{video.title}</h2>
                     <h3 className="username">{video.username}</h3>
                     <h3 className="views">{video.views_count} views</h3>
