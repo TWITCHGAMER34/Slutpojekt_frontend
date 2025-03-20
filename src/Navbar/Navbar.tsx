@@ -54,7 +54,7 @@ function Navbar() {
         <div className="navbar">
             <div className="top-navbar">
                 <div className="logo">
-                    <a href="/">Logo</a>
+                    <a href="/"> <img src="/NinjaHalfpipe logo.png" alt=""/> </a>
                 </div>
                 <form className="search-bar" onSubmit={handleSearch}>
                     <input
