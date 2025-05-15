@@ -5,7 +5,7 @@
     justify-content: left;
     align-items: center;
     flex-direction: row;
-    background-color: #23033e;
+    background-color: #222;
     padding: 12vh 5vw 0;
     margin-left: 3vw;
     color: #ffffff;
@@ -16,7 +16,7 @@
 
     min-width: 3vw;
     min-height: 100vh;
-    width: 66vw;
+    width: 50vw;
     background-color: rgba(255, 127, 80, 0);
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -31,7 +31,7 @@
     max-width: 66vw;
     max-height: 66vh ;
 
-    background-color: #1a1a1a;
+    background-color: #222;
 }
 
 .title {
@@ -75,12 +75,16 @@
 }
 
 .likeButton {
-    background-color: #4caf50;
+    border-style: solid;
+    border-radius: 3px;
+    background-color: #222;
     color: white;
 }
 
 .dislikeButton {
-    background-color: #f44336;
+    border-style: solid;
+    border-radius: 3px;
+    background-color: #222;
     color: white;
 }
 
@@ -110,7 +114,7 @@
 }
 
 .readMoreButton {
-    background-color: #007bff;
+    background-color: #222;
     color: white;
     border: none;
     border-radius: 5px;
@@ -121,21 +125,23 @@
 
 .commentsSection {
     margin-top: 20px;
+    text-align: left;
 }
 
 .commentForm {
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 10px;
 
     textarea{
+        width: 97%;
         background-color: rgba(35, 3, 62, 0);
-        color: #ffffff;
+        color: white;
     }
 }
 
 .commentForm textarea {
-    width: 100%;
     height: 100px;
     padding: 10px;
     border-radius: 5px;
@@ -145,12 +151,13 @@
 
 .commentForm button {
     align-self: flex-end;
-    background-color: #007bff;
+    border-style: solid;
+    border-width: 2px;
+    background-color: #222;
     color: white;
-    border: none;
-    border-radius: 5px;
     padding: 10px 20px;
     cursor: pointer;
+    margin-right: 2px;
 }
 
 .commentsList {
@@ -158,6 +165,7 @@
 }
 
 .comment {
+    text-align: left;
     margin-bottom: 10px;
     padding: 10px;
     border-radius: 5px;
@@ -165,4 +173,21 @@
     border-color: #ffffff;
     border-width: 1px;
     background-color: rgba(241, 241, 241, 0);
+}
+
+.commentInfo {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.commentUser {
+    width: auto;
+    max-width: 40%;
+    flex-shrink: 1;
+}
+.commentData {
+    width: auto;
+    max-width: 40%;
+    flex-shrink: 1;
 }
