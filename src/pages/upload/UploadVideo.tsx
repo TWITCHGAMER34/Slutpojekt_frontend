@@ -31,6 +31,9 @@ const UploadVideo: React.FC = () => {
 
     const handleUpload = async () => {
         if (!videoFile) return alert("Please select a video file.");
+        if (!thumbnail) return alert("Please select an image.");
+        if (!title.trim()) return alert("Please enter a title.");
+        if (!description.trim()) return alert("Please enter a description.");
 
         const formData = new FormData();
         formData.append("video", videoFile);
@@ -60,14 +63,19 @@ const UploadVideo: React.FC = () => {
     return (
         <div className={styles.uploadContainer}>
             <h2>Upload Video</h2>
-            <input type="file" accept="video/*" onChange={handleFileChange} />
-            {videoPreview && <video src={videoPreview} controls width="400" />}
+            <input type="file" accept="video/*" onChange={handleFileChange}/>
+            {videoPreview && <video src={videoPreview} controls width="400"/>}
             <label>Thumbnail:</label>
-            <input type="file" accept="image/*" onChange={handleThumbnailChange} />
-            {thumbnailPreview && <img src={thumbnailPreview} alt="Thumbnail Preview" width="200" />}
-            <input type="text" placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} />
-            <textarea placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)} />
-            <input type="text" placeholder="Tags (comma separated)" value={tags} onChange={(e) => setTags(e.target.value)} />
+            <input type="file" accept="image/*" onChange={handleThumbnailChange}/>
+            {thumbnailPreview && <img src={thumbnailPreview} alt="Thumbnail Preview" width="200"/>}
+            <input type="text" placeholder="Title" value={title} maxLength={30}
+                   onChange={(e) => setTitle(e.target.value)}/>
+            <div className={styles.countdown}>{30 - title.length} characters left</div>
+            <textarea placeholder="Description" value={description} maxLength={500}
+                      onChange={(e) => setDescription(e.target.value)}/>
+            <div className={styles.countdown}>{500 - description.length} characters left</div>
+            <input type="text" placeholder="Tags (comma separated)" value={tags}
+                   onChange={(e) => setTags(e.target.value)}/>
             {uploadProgress > 0 && <progress value={uploadProgress} max="100"></progress>}
             <button onClick={handleUpload}>Upload</button>
         </div>
