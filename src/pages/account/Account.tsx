@@ -83,7 +83,7 @@ function Account() {
             <div className="account-container">
                 <div className="column"></div>
                 <div className="column">
-                    /* Display user's profile picture and username */
+                    {/* Display user's profile picture and username */}
                     <img
                         src={typeof user?.profile_picture === 'string' ? `${import.meta.env.VITE_API_URL}${user?.profile_picture}` : 'src/assets/ProfilePic.png'}
                         alt="Profile Picture" className="profile-picture" />
@@ -94,7 +94,7 @@ function Account() {
                 </div>
             </div>
 
-            /* Form for updating profile picture and bio */
+            {/* Form for updating profile picture and bio */}
             <div className="account-info">
                 <h2>Account Information</h2>
                 <form onSubmit={handleSubmit} encType="multipart/form-data">
@@ -115,11 +115,11 @@ function Account() {
                     </div>
                     <button type="submit">Save Changes</button>
                 </form>
-                /* Display error message if any */
+                {/* Display error message if any */}
                 {error && <p className="error-message">{error}</p>}
             </div>
 
-            /* Display additional account information */
+            {/* Display additional account information */}
             <div className="account-info" id="bottom">
                 <h2>More Account Information</h2>
                 <form>

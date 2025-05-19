@@ -71,7 +71,7 @@ function Navbar() {
                 <div className="logo">
                     <a href="/"> <img src="/NinjaHalfpipe logo.png" alt=""/> </a>
                 </div>
-                /* Search bar for video search */
+                {/* Search bar for video search */}
                 <form className="search-bar" onSubmit={handleSearch}>
                     <input
                         type="text"
@@ -79,18 +79,18 @@ function Navbar() {
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                     />
-                    /* Clear search query button */
+                    {/* Clear search query button */}
                     {searchQuery && <FaTimes className="clear-icon" onClick={clearSearch}/>}
                     <button type="submit" className="search-icon"><FaSearch/></button>
                 </form>
                 <div className="auth-button">
-                    /* Upload button visible only when logged in */
+                    {/* Upload button visible only when logged in */}
                     {isLoggedIn && <button onClick={handleUploadButtonClick}>Upload</button>}
-                    /* Authentication button for login or account */
+                    {/* Authentication button for login or account */}
                     <button onClick={handleAuthButtonClick}>
                         {isLoggedIn ? 'Account' : 'Log In'}
                     </button>
-                    /* Profile picture linking to the user's channel */
+                    {/* Profile picture linking to the user's channel */}
                     {isLoggedIn && user?.profile_picture && (
                         <Link to={"/channel/" + user?.username}>
                             <img
@@ -98,30 +98,30 @@ function Navbar() {
                                 alt="Profile Picture"/>
                         </Link>
                     )}
-                    /* Logout button visible only when logged in */
+                    {/* Logout button visible only when logged in */}
                     {isLoggedIn && <button className="logout-button" onClick={handleLogout}>Log Out</button>}
                 </div>
             </div>
-            /* Side navigation menu */
+            {/* Side navigation menu */}
             <div className={`side-navbar ${isSideNavOpen ? 'open' : ''}`}>
-                /* Toggle button to open/close the side navigation */
+                {/* Toggle button to open/close the side navigation */}
                 <button className="toggle-button" onClick={handleToggleButtonClick}><FaBars/></button>
-                /* Navigation links */
+                {/* Navigation links */}
                 <button className="home-button" onClick={handleHomeButtonClick}><FaHome/><span
                     className="button-text">Home</span></button>
                 <button className="history-button" onClick={handleHistoryButtonClick}><FaHistory/><span
                     className="button-text">History</span></button>
-                /* Upload button only visible when logged in */
+                {/* Upload button only visible when logged in */}
                 {isLoggedIn && (
                     <button className="upload-button" onClick={handleUploadButtonClick}>
                         <FaUpload/><span className="button-text">Upload</span>
                     </button>
                 )}
-                /* Account or login button */
+                {/* Account or login button */}
                 <button className="account-button" onClick={handleAuthButtonClick}>
                     <FaUser/><span className="button-text">{isLoggedIn ? 'Account' : 'Log In'}</span>
                 </button>
-                /* Logout button only visible when logged in */
+                {/* Logout button only visible when logged in */}
                 {isLoggedIn && (
                     <button className="logout-button" onClick={handleLogout}>
                         <FaTimes/><span className="button-text">Log Out</span>

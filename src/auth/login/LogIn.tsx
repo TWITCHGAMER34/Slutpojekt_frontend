@@ -35,7 +35,7 @@ function LogIn() {
             <div className="login-page">
                 <h1>Log In</h1>
 
-                /* Form for user to input email and password */
+                {/* Form for user to input email and password */}
                 <form onSubmit={handleSubmit}>
                     <div>
                         <label>Email:</label>
@@ -47,7 +47,7 @@ function LogIn() {
                     </div>
                     <button type="submit">Log In</button>
                 </form>
-                /* Display message based on login status */
+                {/* Display message based on login status */}
                 {message && <p>{message}</p>}
             </div>
             <a href="/register">Don't have an account?</a>

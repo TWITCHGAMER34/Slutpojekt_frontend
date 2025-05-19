@@ -91,20 +91,20 @@ function Channel() {
                 <div className="column"></div>
                 <div className="channel-info">
                     <div className="channel-user">
-                        /* Display the channel owner's profile picture and username */
+                        {/* Display the channel owner's profile picture and username */}
                         <img
                             src={`${import.meta.env.VITE_API_URL}${channelData.channelInfo.profile_picture}`}
                             alt="Profile Picture" className="profile-picture"/>
                         <h1>{channelData.channelInfo.username}</h1>
                     </div>
                     <div className={"bio"}>
-                        /* Display the channel owner's bio */
+                        {/* Display the channel owner's bio */}
                         <h2>Bio</h2>
                         <p>{channelData.channelInfo.bio}</p>
                     </div>
                 </div>
                 <div className="column Cthird-column">
-                    /* Display links for the channel owner */
+                    {/* Display links for the channel owner */}
                     {isOwner && (
                             <>
                                 <Link to="/upload">Upload Video</Link>
@@ -114,7 +114,7 @@ function Channel() {
                 </div>
             </div>
 
-            /* Section to display the channel's videos */
+            {/* Section to display the channel's videos */}
             <div className="user-videos">
                 <h1>Videos</h1>
                 <div className="videos">
@@ -124,13 +124,13 @@ function Channel() {
                         .reverse() // Reverse the order of the sorted array
                         .map(video => (
                             <div key={video.id} className="video-item">
-                                /* Link to the video page */
+                                {/* Link to the video page */}
                                 <Link to={`/video/${video.id}`}>
                                     <img src={`${import.meta.env.VITE_API_URL}${video.thumbnail}`} alt={video.title}
                                          className="video-thumbnail"/>
                                     <p className="video-title">{video.title}</p>
                                 </Link>
-                                /* Display delete button for the channel owner */
+                                {/* Display delete button for the channel owner */}
                                 {isOwner && (
                                     <button onClick={() => handleDelete(video.id)}
                                             className="delete-button">Delete</button>

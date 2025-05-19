@@ -92,11 +92,11 @@ const UploadVideo: React.FC = () => {
         <div className={styles.uploadContainer}>
             <h2>Upload Video</h2>
             <input type="file" accept="video/*" onChange={handleFileChange}/>
-            /* Display the video preview if available */
+            {/* Display the video preview if available */}
             {videoPreview && <video src={videoPreview} controls width="400"/>}
             <label>Thumbnail:</label>
             <input type="file" accept="image/*" onChange={handleThumbnailChange}/>
-            /* Display the thumbnail preview if available */
+            {/* Display the thumbnail preview if available */}
             {thumbnailPreview && <img src={thumbnailPreview} alt="Thumbnail Preview" width="200"/>}
             <input type="text" placeholder="Title" value={title} maxLength={30}
                    onChange={(e) => setTitle(e.target.value)}/>
@@ -106,9 +106,9 @@ const UploadVideo: React.FC = () => {
             <div className={styles.countdown}>{500 - description.length} characters left</div>
             <input type="text" placeholder="Tags (comma separated)" value={tags}
                    onChange={(e) => setTags(e.target.value)}/>
-            /* Display the upload progress bar if the upload is in progress */
+            {/* Display the upload progress bar if the upload is in progress */}
             {uploadProgress > 0 && <progress value={uploadProgress} max="100"></progress>}
-            /* Button to trigger the upload process */
+            {/* Button to trigger the upload process */}
             <button onClick={handleUpload}>Upload</button>
         </div>
     );

@@ -51,7 +51,7 @@ const RegistrationForm: React.FC = () => {
             <div className="register-page">
                 <h1>Register</h1>
 
-                /* Form for user to register with user details */
+                {/* Form for user to register with user details */}
                 <form onSubmit={handleSubmit}>
                     <input type="text" name="firstname" placeholder="First Name" onChange={handleChange} required/>
                     <input type="text" name="lastname" placeholder="Last Name" onChange={handleChange} required/>
