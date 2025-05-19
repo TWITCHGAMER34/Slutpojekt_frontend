@@ -2,7 +2,7 @@ import {useState} from 'react';
 import {useNavigate, Link} from 'react-router-dom';
 import {useAuth} from '../auth/context/AuthContext.tsx';
 import './Navbar.css';
-import {FaHome, FaHistory, FaBars, FaSearch, FaTimes} from 'react-icons/fa';
+import {FaHome, FaHistory, FaBars, FaSearch, FaTimes, FaUpload, FaUser} from 'react-icons/fa';
 
 function Navbar() {
     const {isLoggedIn, user, logout} = useAuth();
@@ -87,9 +87,21 @@ function Navbar() {
                     className="button-text">Home</span></button>
                 <button className="history-button" onClick={handleHistoryButtonClick}><FaHistory/><span
                     className="button-text">History</span></button>
-
-                </div>
+                {isLoggedIn && (
+                    <button className="upload-button" onClick={handleUploadButtonClick}>
+                        <FaUpload/><span className="button-text">Upload</span>
+                    </button>
+                )}
+                <button className="account-button" onClick={handleAuthButtonClick}>
+                    <FaUser/><span className="button-text">{isLoggedIn ? 'Account' : 'Log In'}</span>
+                </button>
+                {isLoggedIn && (
+                    <button className="logout-button" onClick={handleLogout}>
+                        <FaTimes/><span className="button-text">Log Out</span>
+                    </button>
+                )}
             </div>
+        </div>
     );
 }
 

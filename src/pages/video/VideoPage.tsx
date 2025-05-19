@@ -209,7 +209,10 @@ const VideoPage: React.FC = () => {
                     <div className={styles.commentsList}>
                         {videoData.comments.map((comment) => (
                             <div key={comment.id} className={styles.comment}>
-                                <p><strong>{comment.username}</strong> {new Date(comment.created_at).toLocaleDateString()} {new Date(comment.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                                <div className={styles.commentInfo}>
+                                <p className={styles.commentUser}><strong>{comment.username}</strong></p>
+                                <p className={styles.commentData}>{new Date(comment.created_at).toLocaleDateString()} {new Date(comment.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                                </div>
                                 <p>{comment.comment}</p>
                             </div>
                         ))}

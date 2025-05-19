@@ -17,6 +17,8 @@ interface VideoData {
     id: number;
     title: string;
     thumbnail: string;
+    views_count: number;
+    created_at: string;
 }
 
 function Channel() {
@@ -70,18 +72,20 @@ function Channel() {
         <div className="account-wrapper">
             <div className="account-container">
                 <div className="column"></div>
-                <div className="column">
-                    <img
-                        src={`${import.meta.env.VITE_API_URL}${channelData.channelInfo.profile_picture}`}
-                        alt="Profile Picture" className="profile-picture"/>
-                    <h1>{channelData.channelInfo.username}</h1>
+                <div className="channel-info">
+                    <div className="channel-user">
+                        <img
+                            src={`${import.meta.env.VITE_API_URL}${channelData.channelInfo.profile_picture}`}
+                            alt="Profile Picture" className="profile-picture"/>
+                        <h1>{channelData.channelInfo.username}</h1>
+                    </div>
                     <div className={"bio"}>
                         <h2>Bio</h2>
                         <p>{channelData.channelInfo.bio}</p>
                     </div>
                 </div>
                 <div className="column Cthird-column">
-                    {isOwner && (
+                {isOwner && (
                         <>
                             <Link to="/upload">Upload Video</Link>
                             <Link to="/account">Account</Link>
@@ -93,18 +97,23 @@ function Channel() {
             <div className="user-videos">
                 <h1>Videos</h1>
                 <div className="videos">
-                    {channelData.videos && channelData.videos.map(video => (
-                        <div key={video.id} className="video-item">
-                            <Link to={`/video/${video.id}`}>
-                                <img src={`${import.meta.env.VITE_API_URL}${video.thumbnail}`} alt={video.title}
-                                     className="video-thumbnail"/>
-                                <p className="video-title">{video.title}</p>
-                            </Link>
-                            {isOwner && (
-                                <button onClick={() => handleDelete(video.id)} className="delete-button">Delete</button>
-                            )}
-                        </div>
-                    ))}
+                    {channelData.videos
+                        .slice() // Create a shallow copy to avoid mutating the original array
+                        .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()) // Sort by newest first
+                        .reverse() // Reverse the order of the sorted array
+                        .map(video => (
+                            <div key={video.id} className="video-item">
+                                <Link to={`/video/${video.id}`}>
+                                    <img src={`${import.meta.env.VITE_API_URL}${video.thumbnail}`} alt={video.title}
+                                         className="video-thumbnail"/>
+                                    <p className="video-title">{video.title}</p>
+                                </Link>
+                                {isOwner && (
+                                    <button onClick={() => handleDelete(video.id)}
+                                            className="delete-button">Delete</button>
+                                )}
+                            </div>
+                        ))}
                 </div>
             </div>
         </div>
