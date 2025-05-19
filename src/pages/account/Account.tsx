@@ -104,7 +104,7 @@ function Account() {
                 {error && <p className="error-message">{error}</p>}
             </div>
 
-            <div className="account-info">
+            <div className="account-info" id="bottom">
                 <h2>More Account Information</h2>
                 <form>
                     <div>

@@ -200,11 +200,18 @@ button {
     }
 }
 
+#bottom {
+    margin-bottom: 3rem !important;
+}
+
+.Cthird-column {
+    align-items: flex-start !important;
+    margin-left: -0.5rem !important;
+    margin-right: auto;
+}
+
 @media (max-width: 768px) {
-
-
     .account-info {
         width: 80% !important;
-        margin-left: -1.5rem;
     }
 }
