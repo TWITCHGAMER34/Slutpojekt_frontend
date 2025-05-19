@@ -4,37 +4,61 @@ import * as React from "react";
 import styles from "./UploadVideo.module.css";
 
 const UploadVideo: React.FC = () => {
+    // State to store the selected video file
     const [videoFile, setVideoFile] = useState<File | null>(null);
+
+    // State to store the video preview URL
     const [videoPreview, setVideoPreview] = useState<string | null>(null);
+
+    // State to store the title of the video
     const [title, setTitle] = useState<string>("");
+
+    // State to store the video description
     const [description, setDescription] = useState<string>("");
+
+    // State to store the video tags (comma-seperated)
     const [tags, setTags] = useState<string>("");
+
+    // State to store the upload progress percentage
     const [uploadProgress, setUploadProgress] = useState<number>(0);
+
+    // State to store the selected thumbnail image
     const [thumbnail, setThumbnail] = useState<File | null>(null);
+
+    // State to store the thumbnail preview URL
     const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
 
+    // Handle changes to the video file input
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
         if (file) {
+            // Update the video file state
             setVideoFile(file);
+            // Generate a preview URL for the video file
             setVideoPreview(URL.createObjectURL(file));
         }
     };
 
+    // Handle changes to the thumbnail image input
     const handleThumbnailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
         if (file) {
+            // Update the thumbnail file state
             setThumbnail(file);
+            // Generate a preview URL for the thumbnail
             setThumbnailPreview(URL.createObjectURL(file));
         }
     };
 
+    // Handle the video upload process
     const handleUpload = async () => {
+        // Validate required fields
         if (!videoFile) return alert("Please select a video file.");
         if (!thumbnail) return alert("Please select an image.");
         if (!title.trim()) return alert("Please enter a title.");
         if (!description.trim()) return alert("Please enter a description.");
 
+        // Create a FormData object to send the video and metadata
         const formData = new FormData();
         formData.append("video", videoFile);
         formData.append("title", title);
@@ -45,17 +69,21 @@ const UploadVideo: React.FC = () => {
         }
 
         try {
+            // Send the video data to the backend
             const response = await axios.post(`${import.meta.env.VITE_API_URL}/uploadVideo`, formData, {
                 headers: { "Content-Type": "multipart/form-data" },
                 onUploadProgress: (progressEvent) => {
+                    // Update the upload progress percentage
                     if (progressEvent.total) {
                         const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
                         setUploadProgress(percentCompleted);
                     }
                 },
             });
+            // Log the server response
             console.log("Server Response:", response.data);
         } catch (error) {
+            // Log any errors
             console.error("Upload failed:", error);
         }
     };
@@ -64,9 +92,11 @@ const UploadVideo: React.FC = () => {
         <div className={styles.uploadContainer}>
             <h2>Upload Video</h2>
             <input type="file" accept="video/*" onChange={handleFileChange}/>
+            /* Display the video preview if available */
             {videoPreview && <video src={videoPreview} controls width="400"/>}
             <label>Thumbnail:</label>
             <input type="file" accept="image/*" onChange={handleThumbnailChange}/>
+            /* Display the thumbnail preview if available */
             {thumbnailPreview && <img src={thumbnailPreview} alt="Thumbnail Preview" width="200"/>}
             <input type="text" placeholder="Title" value={title} maxLength={30}
                    onChange={(e) => setTitle(e.target.value)}/>
@@ -76,7 +106,9 @@ const UploadVideo: React.FC = () => {
             <div className={styles.countdown}>{500 - description.length} characters left</div>
             <input type="text" placeholder="Tags (comma separated)" value={tags}
                    onChange={(e) => setTags(e.target.value)}/>
+            /* Display the upload progress bar if the upload is in progress */
             {uploadProgress > 0 && <progress value={uploadProgress} max="100"></progress>}
+            /* Button to trigger the upload process */
             <button onClick={handleUpload}>Upload</button>
         </div>
     );

@@ -5,7 +5,10 @@ import { useAuth } from '../../auth/context/AuthContext.tsx';
 import './Account.css';
 
 function Account() {
+    // Access authentication state and user information from AuthContext
     const { isLoggedIn, user } = useAuth();
+
+    // State to manage user data from profile updates
     const [userData, setUserData] = useState({
         firstname: '',
         lastname: '',
@@ -15,15 +18,20 @@ function Account() {
         bio: '',
         profilePicture: '' as string | File
     });
+
+    // State to manage error messages
     const [error, setError] = useState<string | null>(null);
+    // State to track the character count for the bio/description
     const [charCount, setCharCount] = useState(0);
 
+    // Handle changes to the picture input
     const handleProfilePictureChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files) {
             setUserData({ ...userData, profilePicture: event.target.files[0] });
         }
     };
 
+    // Handle changes to the bio/description input
     const handleDescriptionChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         const value = event.target.value;
         if (value.length <= 400) {
@@ -32,6 +40,7 @@ function Account() {
         }
     };
 
+    // Handle form submission for updating profile picture and bio/description
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         setError(null);
@@ -45,9 +54,11 @@ function Account() {
         }
 
         try {
+            // Send profile picture to the backend
             if (userData.profilePicture) {
                 await axios.post(`${import.meta.env.VITE_API_URL}/account/uploadProfilePicture`, formData, {});
             }
+            // Send bio/description to the backend
             if (userData.bio) {
                 await axios.post(`${import.meta.env.VITE_API_URL}/updateDescription`, { bio: userData.bio });
             }
@@ -58,6 +69,7 @@ function Account() {
         }
     };
 
+    // Redirect to login page is the user is not logged in
     if (!isLoggedIn) {
         return (
             <div className="login-prompt">
@@ -71,6 +83,7 @@ function Account() {
             <div className="account-container">
                 <div className="column"></div>
                 <div className="column">
+                    /* Display user's profile picture and username */
                     <img
                         src={typeof user?.profile_picture === 'string' ? `${import.meta.env.VITE_API_URL}${user?.profile_picture}` : 'src/assets/ProfilePic.png'}
                         alt="Profile Picture" className="profile-picture" />
@@ -81,6 +94,7 @@ function Account() {
                 </div>
             </div>
 
+            /* Form for updating profile picture and bio */
             <div className="account-info">
                 <h2>Account Information</h2>
                 <form onSubmit={handleSubmit} encType="multipart/form-data">
@@ -101,9 +115,11 @@ function Account() {
                     </div>
                     <button type="submit">Save Changes</button>
                 </form>
+                /* Display error message if any */
                 {error && <p className="error-message">{error}</p>}
             </div>
 
+            /* Display additional account information */
             <div className="account-info" id="bottom">
                 <h2>More Account Information</h2>
                 <form>
