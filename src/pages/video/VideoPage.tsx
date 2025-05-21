@@ -26,6 +26,14 @@ interface VideoData {
         username: string;
     }[];
 }
+interface recommendedVideoData {
+    id: string;
+    title: string;
+    thumbnail: string;
+    username: string;
+    views_count: number;
+    created_at: string;
+}
 
 const VideoPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
@@ -34,6 +42,7 @@ const VideoPage: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const [showFullDescription, setShowFullDescription] = useState(false);
     const [comment, setComment] = useState<string>("");
+    const [videos, setVideos] = useState<recommendedVideoData[]>([]);
 
     useEffect(() => {
         const fetchVideoData = async () => {
@@ -75,6 +84,24 @@ const VideoPage: React.FC = () => {
             }
         };
 
+        const fetchVideos = async () => {
+            try {
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/videos`);
+                console.log(response.data);
+                if (Array.isArray(response.data.videos)) {
+                    setVideos(response.data.videos);
+                } else {
+                    setError("Unexpected response format");
+                }
+            } catch (error) {
+                setError("Error fetching videos");
+                console.error("Error fetching videos:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchVideos()
         fetchVideoData();
         addToHistoryAndIncrementViews();
     }, [id]);
@@ -159,6 +186,18 @@ const VideoPage: React.FC = () => {
 
     const description = showFullDescription ? videoData.video.description : videoData.video.description.slice(0, 310);
 
+
+
+
+
+        if (loading) {
+            return <div>Loading...</div>;
+        }
+
+        if (error) {
+            return <div>{error}</div>;
+        }
+
     return (
         <div className={styles.fullPage}>
             <div className={styles.container}>
@@ -219,8 +258,31 @@ const VideoPage: React.FC = () => {
                     </div>
                 </div>
             </div>
+            <div className={styles.recommendations}>
+                {videos.map((video) => (
+
+                    <div className="card" key={video.id}>
+                        <img
+                            className="thumbnail"
+                            src={`${import.meta.env.VITE_API_URL}` + video.thumbnail}
+                            alt={video.title}
+                        />
+                        <div className={"border"}></div>
+                        <h2 className="title">{video.title}</h2>
+                        <h3 className="username">{video.username}</h3>
+                        <h3 className="views">{video.views_count} views</h3>
+                        <h3 className="date">{new Date(video.created_at).toLocaleDateString()}</h3>
+                        <a href={`http://localhost:5173/video/${video.id}`} className="fillParent"></a>
+                    </div>
+
+                ))}
+            </div>
         </div>
     );
 };
+
+
+
+
 
 export default VideoPage;
