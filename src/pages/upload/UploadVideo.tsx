@@ -16,9 +16,6 @@ const UploadVideo: React.FC = () => {
     // State to store the video description
     const [description, setDescription] = useState<string>("");
 
-    // State to store the video tags (comma-seperated)
-    const [tags, setTags] = useState<string>("");
-
     // State to store the upload progress percentage
     const [uploadProgress, setUploadProgress] = useState<number>(0);
 
@@ -63,7 +60,6 @@ const UploadVideo: React.FC = () => {
         formData.append("video", videoFile);
         formData.append("title", title);
         formData.append("description", description);
-        formData.append("tags", tags);
         if (thumbnail) {
             formData.append("thumbnail", thumbnail);
         }
@@ -104,8 +100,6 @@ const UploadVideo: React.FC = () => {
             <textarea placeholder="Description" value={description} maxLength={500}
                       onChange={(e) => setDescription(e.target.value)}/>
             <div className={styles.countdown}>{500 - description.length} characters left</div>
-            <input type="text" placeholder="Tags (comma separated)" value={tags}
-                   onChange={(e) => setTags(e.target.value)}/>
             {/* Display the upload progress bar if the upload is in progress */}
             {uploadProgress > 0 && <progress value={uploadProgress} max="100"></progress>}
             {/* Button to trigger the upload process */}
