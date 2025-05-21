@@ -2,7 +2,50 @@
 body{
     scrollbar-color: #ffffff #23033e;
 }
-@media only screen and (min-width: 801px) {
+
+@media only screen and (min-width: 601px) {
+    #home-page{
+        background-color: #222;
+        width: 92vw;
+        height: fit-content;
+        min-height: 100vh;
+        margin-left: 2vw;
+        margin-top: 12vh;
+
+        padding-left: 5vw;
+
+        display: flex;
+        flex-wrap: wrap;
+
+        justify-content: space-evenly;
+
+    }
+
+    .card{
+        height: 35vh;
+        width: 45%;
+        margin: 1% 1% 1%;
+        padding: 0;
+
+        position: relative;
+        overflow: hidden;
+
+
+
+        h2{
+            font-size: 2.5vw;
+            color: #ffffff;
+        }
+
+        h3{
+            font-size: 2vw;
+            color: #cfcfcf;
+        }
+    }
+}
+
+
+@media only screen and (min-width: 993px) {
     #home-page{
         background-color: #222;
         width: 92vw;
@@ -42,7 +85,7 @@ body{
 }
 
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 600px) {
     #home-page {
         background-color: #222;
         width: 92vw;
@@ -79,11 +122,9 @@ body{
             color: #cfcfcf;
         }
     }
-
-
-
-
 }
+
+
 
 .fillParent{
 

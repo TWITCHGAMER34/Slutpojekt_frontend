@@ -15,9 +15,9 @@ interface VideoData {
 
 
 
-function cutDescription(description: string){
-    if (description.length > 337){
-        return description.slice(0, 337) + "...";
+function cutDescription(description: string){ //Klipper en string till 257 tecken och lägger till "...", används så att descriptions inte går utanför sin div.
+    if (description.length > 257){
+        return description.slice(0, 257) + "...";
     } else {
         return description
     }
@@ -59,7 +59,7 @@ const VideoSearch: React.FC = () => {
 
     return (
         <div className="video-search-container">
-            <h2>Search Results:</h2>
+            <h2 id={"search-result"}>Search Results:</h2>
             <div className="video-list">
                 {videos.map(video => (
                     <div key={video.id} className="search-card">

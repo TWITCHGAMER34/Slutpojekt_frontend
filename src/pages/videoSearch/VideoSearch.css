@@ -1,5 +1,16 @@
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 600px) {
+
+    .video-list {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        justify-content: center;
+
+        padding-right: 8%;
+        width: 92%;
+    }
+
     .search-card{
         height: 45vh;
         width: 100%;
@@ -94,7 +105,125 @@
 
 }
 
-@media only screen and (min-width: 801px) {
+@media only screen and (min-width: 601px) {
+
+    .video-list {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+
+        padding-left: 4%;
+        padding-right: 4%;
+        width: 92%;
+    }
+
+    .search-card{
+        height: 35vh;
+        width: 45%;
+        margin: 1% 1% 1%;
+        padding: 0;
+
+        position: relative;
+        overflow: hidden;
+
+
+
+        h2{
+            font-size: 2.5vw;
+            color: #ffffff;
+        }
+
+        h3{
+            font-size: 2vw;
+            color: #cfcfcf;
+        }
+
+        .search-description{
+            display: none;
+        }
+    }
+
+    .fillParent{
+
+        position: absolute;
+        display: block;
+
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .search-thumbnail{
+        position: absolute;
+        color: #ffffff;
+        display: block;
+        object-fit: cover;
+        background-color: #1a1a1a;
+
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 70%;
+    }
+
+    .search-border{
+        border-style: hidden solid hidden solid;
+        border-radius: 2px;
+        border-color: #ffffff;
+
+        width: 95%;
+        height: 18%;
+
+        position: absolute;
+        top: 72%;
+        margin: 2%;
+    }
+
+    .search-title{
+        position: absolute;
+        margin: 0 5% 0;
+        top: 70%;
+    }
+
+    .search-username{
+        position: absolute;
+        height: 5%;
+        width: 5%;
+        margin: 0 5% 0;
+        top: 82%;
+    }
+
+    .search-views{
+        position: absolute;
+        margin: 0 5% 0;
+        top: 90%;
+
+    }
+
+    .search-date{
+        position: absolute;
+        margin: 0 5% 0;
+        top: 90%;
+        left: 30%;
+    }
+
+}
+
+@media only screen and (min-width: 992px) {
+
+    .video-list {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        justify-content: center;
+
+        padding-left: 4%;
+        padding-right: 4%;
+        width: 92%;
+    }
 
     .search-border{
         display: none;
@@ -115,7 +244,7 @@
     }
 
     .search-card{
-        height: 45vh;
+        height: 35vh;
         width: 100%;
 
         position: relative;
@@ -158,27 +287,22 @@
         top: 5%;
         left: 30%;
     }
+
     .search-views{
-
-
+        position: static;
         margin: 0 5% 0;
-
 
     }
 
     .search-date{
-
-
+        position: static;
         margin: 0 5% 0;
-
-
     }
 
     .search-username{
-
-
+        position: static;
         margin: 0 5% 0;
-
+        width: fit-content;
     }
 
     .search-description{
@@ -191,33 +315,18 @@
     }
 }
 
-.video-search-container {
+.video-search-container{
     background-color: #222;
-    width: 92vw;
-    height: fit-content;
-    min-height: 100vh;
-    margin-left: 2vw;
+
     margin-top: 12vh;
 
     padding-left: 5vw;
+}
 
-    display: flex;
-    flex-direction: column;
-
-    h2{
-        width: fit-content;
-    }
-
+#search-result{
+    width: fit-content;
+    padding-left: 4%;
 }
 
 
-.video-list {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    justify-content: center;
-
-    padding-right: 8%;
-    width: 92%;
-}
 
