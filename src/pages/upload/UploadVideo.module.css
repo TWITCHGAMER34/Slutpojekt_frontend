@@ -2,16 +2,18 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    height: fit-content;
+    padding-bottom: 5rem;
     margin: 0;
     font-family: 'Arial', sans-serif;
-    background-color: #23033e !important;
+    background: #222 !important;
     color: #ffffff;
 }
 
 .uploadContainer {
     max-width: 600px;
-    margin: 120px auto;
+    width: 80%;
+    margin: 6rem auto 2rem auto;
     padding: 2rem;
     border: 1px solid #ccc;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -23,6 +25,15 @@ body, html {
     align-items: center;
     border-radius: 10px;
     animation: fadeIn 1s ease-in-out;
+
+    .countdown {
+        display: flex;
+        width: 100%;
+        justify-content: end;
+        margin-bottom: 1rem;
+        margin-top: -0.5rem;
+        font-size: 0.75rem;
+    }
 }
 
 .uploadContainer h2 {

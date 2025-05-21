@@ -13,6 +13,9 @@ const History: React.FC = () => {
     const [historyItems, setHistoryItems] = useState<HistoryItem[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [currentPage, setCurrentPage] = useState(0);
+    const ITEMS_PER_PAGE = 4;
+
 
     useEffect(() => {
         const fetchHistory = async () => {
@@ -39,16 +42,41 @@ const History: React.FC = () => {
         return <div>{error}</div>;
     }
 
+    const startIndex = currentPage * ITEMS_PER_PAGE;
+    const visibleItems = historyItems.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+    const canGoNext = startIndex + ITEMS_PER_PAGE < historyItems.length;
+    const canGoPrevious = currentPage > 0;
+
+    const handleNext = () => {
+        if (canGoNext) {
+            setCurrentPage(prev => prev + 1);
+        }
+    };
+
+    const handlePrevious = () => {
+        if (canGoPrevious) {
+            setCurrentPage(prev => prev - 1);
+        }
+    };
+
     return (
         <div className={styles.historyContainer}>
             <h2 className={styles.title}>Recently Viewed Videos</h2>
             <div className={styles.historyList}>
-                {historyItems.map(item => (
+                {visibleItems.map(item => (
                     <Link to={`/video/${item.id}`} key={item.id} className={styles.historyItem}>
                         <img src={`${import.meta.env.VITE_API_URL}${item.thumbnail}`} alt={item.title} className={styles.thumbnail} />
                         <p className={styles.videoTitle}>{item.title}</p>
                     </Link>
                 ))}
+            </div>
+            <div className={styles.buttonContainer}>
+                {canGoPrevious && (
+                    <button className={styles.navButton} onClick={handlePrevious}>Previous</button>
+                )}
+                {canGoNext && (
+                    <button className={styles.navButton} onClick={handleNext}>Next</button>
+                )}
             </div>
         </div>
     );

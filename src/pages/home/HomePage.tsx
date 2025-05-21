@@ -47,7 +47,9 @@ function HomePage() {
 
     return (
         <div id="home-page">
+
             {videos.map((video) => (
+
                 <div className="card" key={video.id}>
                     <img
                         className="thumbnail"

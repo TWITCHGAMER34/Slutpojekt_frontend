@@ -3,41 +3,128 @@ body{
     scrollbar-color: #ffffff #23033e;
 }
 
+@media only screen and (min-width: 601px) {
+    #home-page{
+        background-color: #222;
+        width: 92vw;
+        height: fit-content;
+        min-height: 100vh;
+        margin-left: 2vw;
+        margin-top: 12vh;
 
-#home-page{
-    background-color: #23033e;
-    width: 92vw;
-    height: fit-content;
-    min-height: 100vh;
-    margin-left: 1vw;
-    margin-top: 12vh;
+        padding-left: 5vw;
 
-    padding-left: 5vw;
+        display: flex;
+        flex-wrap: wrap;
 
-    display: flex;
-    flex-wrap: wrap;
+        justify-content: space-evenly;
 
-}
-
-.card{
-    height: 35vh;
-    width: 30%;
-    margin: 1% 1% 1%;
-    padding: 0;
-
-    position: relative;
-    overflow: hidden;
-
-
-
-    h2{
-        font-size: 1.5vw;
     }
 
-    h3{
-        font-size: 1vw;
+    .card{
+        height: 35vh;
+        width: 45%;
+        margin: 1% 1% 1%;
+        padding: 0;
+
+        position: relative;
+        overflow: hidden;
+
+
+
+        h2{
+            font-size: 2.5vw;
+            color: #ffffff;
+        }
+
+        h3{
+            font-size: 2vw;
+            color: #cfcfcf;
+        }
     }
 }
+
+
+@media only screen and (min-width: 993px) {
+    #home-page{
+        background-color: #222;
+        width: 92vw;
+        height: fit-content;
+        min-height: 100vh;
+        margin-left: 2vw;
+        margin-top: 12vh;
+
+        padding-left: 5vw;
+
+        display: flex;
+        flex-wrap: wrap;
+
+    }
+
+    .card{
+        height: 45vh;
+        width: 30%;
+        margin: 1% 1% 1%;
+        padding: 0;
+
+        position: relative;
+        overflow: hidden;
+
+
+
+        h2{
+            font-size: 1.5vw;
+            color: #ffffff;
+        }
+
+        h3{
+            font-size: 1vw;
+            color: #cfcfcf;
+        }
+    }
+}
+
+
+@media only screen and (max-width: 600px) {
+    #home-page {
+        background-color: #222;
+        width: 92vw;
+        height: fit-content;
+        min-height: 100vh;
+        margin-left: 2vw;
+        margin-top: 12vh;
+
+        padding-left: 3vw;
+        padding-right: 2vw;
+
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card{
+        height: 45vh;
+        width: 100%;
+        margin: 1% 1% 1%;
+        padding: 0;
+
+        position: relative;
+        overflow: hidden;
+
+
+
+        h2{
+            font-size: 5.5vw;
+            color: #ffffff;
+        }
+
+        h3{
+            font-size: 4vw;
+            color: #cfcfcf;
+        }
+    }
+}
+
+
 
 .fillParent{
 
@@ -64,34 +151,34 @@ body{
 }
 
 .border{
-    border-style: hidden solid solid solid;
-    border-radius: 0 0 2px 2px;
+    border-style: hidden solid hidden solid;
+    border-radius: 2px;
     border-color: #ffffff;
 
-    width: 99%;
-    height: 28%;
+    width: 95%;
+    height: 18%;
 
     position: absolute;
-    top: 70%;
+    top: 72%;
+    margin: 2%;
 }
 
 .title{
     position: absolute;
-    color: #ffffff;
     margin: 0 5% 0;
     top: 70%;
 }
 
 .username{
     position: absolute;
-    color: #ffffff;
+    height: 5%;
+    width: 5%;
     margin: 0 5% 0;
-    top: 85%;
+    top: 82%;
 }
 
 .views{
     position: absolute;
-    color: #ffffff;
     margin: 0 5% 0;
     top: 90%;
 
@@ -99,7 +186,6 @@ body{
 
 .date{
     position: absolute;
-    color: #ffffff;
     margin: 0 5% 0;
     top: 90%;
     left: 30%;
