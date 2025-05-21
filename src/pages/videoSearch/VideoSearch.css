@@ -245,6 +245,7 @@
 
     .search-card{
         height: 35vh;
+        max-height: 200px;
         width: 100%;
 
         position: relative;
@@ -262,6 +263,7 @@
 
         p{
             text-align: left;
+            display: block !important;
         }
     }
 

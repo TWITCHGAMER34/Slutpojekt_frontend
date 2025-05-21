@@ -289,6 +289,13 @@
         padding: 0;
     }
 
+    .clear-icon {
+        position: absolute;
+        right: -8rem;
+        cursor: pointer;
+        color: #ccc;
+    }
+
     .search-bar input {
         width: 90%;
         padding: 0.5rem;
