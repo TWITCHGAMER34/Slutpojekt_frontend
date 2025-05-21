@@ -260,18 +260,17 @@ const VideoPage: React.FC = () => {
             </div>
             <div className={styles.recommendations}>
                 {videos.map((video) => (
-
-                    <div className="card" key={video.id}>
+                    <div className={styles.video__card} key={video.id}>
                         <img
-                            className="thumbnail"
+                            className={styles.video__thumbnail}
                             src={`${import.meta.env.VITE_API_URL}` + video.thumbnail}
                             alt={video.title}
                         />
-                        <div className={"border"}></div>
-                        <h2 className="title">{video.title}</h2>
-                        <h3 className="username">{video.username}</h3>
-                        <h3 className="views">{video.views_count} views</h3>
-                        <h3 className="date">{new Date(video.created_at).toLocaleDateString()}</h3>
+                        <div className={styles.video__border}></div>
+                        <h2 className={styles.video__title}>{video.title}</h2>
+                        <h3 className={styles.video__username}>{video.username}</h3>
+                        <h3 className={styles.video__views}>{video.views_count} views</h3>
+                        <h3 className={styles.video__date}>{new Date(video.created_at).toLocaleDateString()}</h3>
                         <a href={`http://localhost:5173/video/${video.id}`} className="fillParent"></a>
                     </div>
 
