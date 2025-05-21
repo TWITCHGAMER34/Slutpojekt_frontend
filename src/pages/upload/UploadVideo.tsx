@@ -12,6 +12,8 @@ const UploadVideo: React.FC = () => {
     const [uploadProgress, setUploadProgress] = useState<number>(0);
     const [thumbnail, setThumbnail] = useState<File | null>(null);
     const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
+    const [isUploading, setIsUploading] = useState(false);
+    const [success, setSuccess] = useState(false);
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
@@ -30,7 +32,9 @@ const UploadVideo: React.FC = () => {
     };
 
     const handleUpload = async () => {
-        if (!videoFile) return alert("Please select a video file.");
+        if (!videoFile || isUploading) return;
+        setIsUploading(true);
+        setSuccess(false);
 
         const formData = new FormData();
         formData.append("video", videoFile);
@@ -51,9 +55,12 @@ const UploadVideo: React.FC = () => {
                     }
                 },
             });
-            console.log("Server Response:", response.data);
+            setSuccess(true);
+            // Optionally reset form here
         } catch (error) {
             console.error("Upload failed:", error);
+        } finally {
+            setIsUploading(false);
         }
     };
 
@@ -69,7 +76,10 @@ const UploadVideo: React.FC = () => {
             <textarea placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)} />
             <input type="text" placeholder="Tags (comma separated)" value={tags} onChange={(e) => setTags(e.target.value)} />
             {uploadProgress > 0 && <progress value={uploadProgress} max="100"></progress>}
-            <button onClick={handleUpload}>Upload</button>
+            <button onClick={handleUpload} disabled={isUploading}>
+                {isUploading ? "Uploading..." : "Upload"}
+            </button>
+            {success && <p style={{ color: "#4caf50", marginTop: "1rem" }}>Upload successful!</p>}
         </div>
     );
 };
