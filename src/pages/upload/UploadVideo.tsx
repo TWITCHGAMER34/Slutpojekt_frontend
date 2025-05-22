@@ -115,8 +115,6 @@ const UploadVideo: React.FC = () => {
                 {isUploading ? "Uploading..." : "Upload"}
             </button>
             {success && <p style={{ color: "#4caf50", marginTop: "1rem" }}>Upload successful!</p>}
-            {/* Button to trigger the upload process */}
-            <button onClick={handleUpload}>Upload</button>
         </div>
     );
 };
