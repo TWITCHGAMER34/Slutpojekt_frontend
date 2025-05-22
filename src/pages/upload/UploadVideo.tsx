@@ -24,6 +24,8 @@ const UploadVideo: React.FC = () => {
 
     // State to store the thumbnail preview URL
     const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
+    const [isUploading, setIsUploading] = useState(false);
+    const [success, setSuccess] = useState(false);
 
     // Handle changes to the video file input
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,6 +56,9 @@ const UploadVideo: React.FC = () => {
         if (!thumbnail) return alert("Please select an image.");
         if (!title.trim()) return alert("Please enter a title.");
         if (!description.trim()) return alert("Please enter a description.");
+        if (!videoFile || isUploading) return;
+        setIsUploading(true);
+        setSuccess(false);
 
         // Create a FormData object to send the video and metadata
         const formData = new FormData();
@@ -76,11 +81,15 @@ const UploadVideo: React.FC = () => {
                     }
                 },
             });
+            setSuccess(true);
+            // Optionally reset form here
             // Log the server response
             console.log("Server Response:", response.data);
         } catch (error) {
             // Log any errors
             console.error("Upload failed:", error);
+        } finally {
+            setIsUploading(false);
         }
     };
 
@@ -102,8 +111,10 @@ const UploadVideo: React.FC = () => {
             <div className={styles.countdown}>{500 - description.length} characters left</div>
             {/* Display the upload progress bar if the upload is in progress */}
             {uploadProgress > 0 && <progress value={uploadProgress} max="100"></progress>}
-            {/* Button to trigger the upload process */}
-            <button onClick={handleUpload}>Upload</button>
+            <button onClick={handleUpload} disabled={isUploading}>
+                {isUploading ? "Uploading..." : "Upload"}
+            </button>
+            {success && <p style={{ color: "#4caf50", marginTop: "1rem" }}>Upload successful!</p>}
         </div>
     );
 };
