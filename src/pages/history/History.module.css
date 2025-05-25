@@ -14,6 +14,17 @@
     color: #321038;
 }
 
+
+.videoTitle {
+    text-align: left;
+    word-wrap: break-word;
+    max-width: 100%;
+    font-family: inherit;
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
+    padding: 0 0.2rem;
+}
+
 .historyList {
     display: flex;
     flex-wrap: wrap;
@@ -27,10 +38,12 @@
 }
 
 .thumbnail {
-    width: 100%;
+    width: 200px;
+    height: 120px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s;
+    object-fit: cover;
 }
 
 .thumbnail:hover {
@@ -51,7 +64,7 @@
 }
 
 .navButton {
-    background-color: #321038;
+    background-color: #501a5a;
     color: rgb(255, 255, 255);
     padding: 0.75rem 1.5rem;
     border: none;
@@ -59,10 +72,12 @@
     font-size: 1rem;
     cursor: pointer;
     transition: background-color 0.3s;
+    opacity: 1;
+    visibility: visible;
 }
 
 .navButton:hover {
-    background-color: #4d1561;
+    background-color: #6a1f7a;
 }
 
 
