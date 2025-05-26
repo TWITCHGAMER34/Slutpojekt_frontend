@@ -62,7 +62,8 @@ body{
     }
 
     .card{
-        height: 45vh;
+        height: 30vw;
+        max-height: 400px;
         width: 30%;
         margin: 1% 1% 1%;
         padding: 0;
