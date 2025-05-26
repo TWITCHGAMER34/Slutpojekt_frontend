@@ -79,7 +79,8 @@ function HomePage() {
                     {/* Upload date */}
                     <h3 className="date">{new Date(video.created_at).toLocaleDateString()}</h3>
                     {/* Clickable overlay to navigate to video page */}
-                    <a href={`/video/${video.id}`} className="fillParent"></a>                </div>
+                    <a href={`/video/${video.id}`} className="fillParent"></a>
+                </div>
             ))}
         </div>
     );

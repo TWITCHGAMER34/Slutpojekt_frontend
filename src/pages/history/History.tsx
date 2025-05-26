@@ -7,6 +7,9 @@ interface HistoryItem {
     id: number;
     title: string;
     thumbnail: string;
+    username: string;
+    views_count: number;
+    created_at: string;
 }
 
 const History: React.FC = () => {
@@ -61,12 +64,26 @@ const History: React.FC = () => {
 
     return (
         <div className={styles.historyContainer}>
-            <h2 className={styles.title}>Recently Viewed Videos</h2>
+            <h2 className={styles.top__text}>Recently Viewed Videos</h2>
             <div className={styles.historyList}>
                 {visibleItems.map(item => (
                     <Link to={`/video/${item.id}`} key={item.id} className={styles.historyItem}>
-                        <img src={`${import.meta.env.VITE_API_URL}${item.thumbnail}`} alt={item.title} className={styles.thumbnail} />
-                        <p className={styles.videoTitle}>{item.title}</p>
+                        {/* Video thumbnail */}
+                        <img
+                            className={styles.thumbnail}
+                            src={`${import.meta.env.VITE_API_URL}${item.thumbnail}`}
+                            alt={item.title}
+                        />
+                        <div className={styles.border}></div>
+                        {/* Video title */}
+                        <h2 className={styles.title}>{item.title}</h2>
+                        {/* Uploader's username */}
+                        <h3 className={styles.username}>{item.username}</h3>
+                        {/* View count */}
+                        <h3 className={styles.views}>{item.views_count} views</h3>
+                        {/* Upload date */}
+                        <h3 className={styles.date}>{new Date(item.created_at).toLocaleDateString()}</h3>
+                        {/* Clickable overlay to navigate to video page */}
                     </Link>
                 ))}
             </div>

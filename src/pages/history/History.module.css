@@ -1,65 +1,206 @@
-.historyContainer {
-    max-width: 70vw;
-    margin: 2rem auto;
-    padding: 2rem;
-    background-color: rgba(50, 16, 56, 0.89);
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+
+
+@media only screen and (min-width: 601px) {
+
+    .historyContainer {
+        width: 83vw;
+        margin: 14vh 6vw 2vh;
+        padding: 2vh 2vw 2vh;
+        background-color: #252525;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .historyList {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5vh;
+        justify-content: center;
+    }
+
+    .historyItem{
+        height: 35vh;
+        max-height: 50vw;
+        width: 45%;
+        margin: 1% 1% 1%;
+        padding: 0;
+
+        position: relative;
+        overflow: hidden;
+
+
+
+        h2{
+            font-size: 2.5vw;
+            color: #ffffff;
+        }
+
+        h3{
+            font-size: 2vw;
+            color: #cfcfcf;
+        }
+    }
+}
+
+@media only screen and (min-width: 993px) {
+
+    .historyContainer {
+        width: 83vw;
+        margin: 14vh 6vw 2vh;
+        padding: 2vh 2vw 2vh;
+        background-color: #252525;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .top__text {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        text-align: center;
+        color: #ffffff;
+    }
+
+
+    .videoTitle {
+        text-align: left;
+        word-wrap: break-word;
+        max-width: 100%;
+        font-family: inherit;
+        font-size: 1.1rem;
+        margin-top: 0.5rem;
+        padding: 0 0.2rem;
+    }
+
+    .historyList {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5vh;
+        justify-content: center;
+    }
+
+    .historyItem {
+        height: 45vh;
+        width: 40%;
+        margin: 1% 1% 1%;
+        padding: 0;
+
+        position: relative;
+        overflow: hidden;
+
+
+        h2 {
+            font-size: 1.5vw;
+            color: #ffffff;
+        }
+
+        h3 {
+            font-size: 1vw;
+            color: #cfcfcf;
+        }
+    }
+}
+
+@media only screen and (max-width: 600px) {
+
+    .historyContainer {
+        width: 83vw;
+        margin: 14vh 6vw 5vh;
+        padding: 2vh 2vw 5vh;
+        background-color: #252525;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .historyList {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5vh;
+        justify-content: center;
+    }
+
+    .historyItem{
+        height: 45vh;
+        width: 100%;
+        margin: 1% 1% 1%;
+        padding: 0;
+
+        position: relative;
+        overflow: hidden;
+
+
+
+        h2{
+            font-size: 5.5vw;
+            color: #ffffff;
+        }
+
+        h3{
+            font-size: 4vw;
+            color: #cfcfcf;
+        }
+    }
+}
+
+
+.thumbnail {
+    position: absolute;
+    color: #ffffff;
+    display: block;
+    object-fit: contain;
+    background-color: #1a1a1a;
+
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70%;
+}
+
+.border {
+    border-style: hidden solid hidden solid;
+    border-radius: 2px;
+    border-color: #ffffff;
+
+    width: 95%;
+    height: 18%;
+
+    position: absolute;
+    top: 72%;
+    margin: 2%;
 }
 
 .title {
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-    text-align: center;
-    color: #321038;
+    position: absolute;
+    margin: 0 5% 0;
+    top: 70%;
 }
 
-
-.videoTitle {
-    text-align: left;
-    word-wrap: break-word;
-    max-width: 100%;
-    font-family: inherit;
-    font-size: 1.1rem;
-    margin-top: 0.5rem;
-    padding: 0 0.2rem;
+.username {
+    position: absolute;
+    height: 5%;
+    width: 5%;
+    margin: 0 5% 0;
+    top: 82%;
 }
 
-.historyList {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    justify-content: center;
+.views {
+    position: absolute;
+    margin: 0 5% 0;
+    top: 90%;
+
 }
 
-.historyItem {
-    width: 200px;
-    text-align: center;
+.date {
+    position: absolute;
+    margin: 0 5% 0;
+    top: 90%;
+    left: 30%;
 }
 
-.thumbnail {
-    width: 200px;
-    height: 120px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s;
-    object-fit: cover;
-}
-
-.thumbnail:hover {
-    transform: scale(1.05);
-}
-
-.videoTitle {
-    margin-top: .5rem;
-    font-size: 1rem;
-    color: #321038;
-}
 
 .buttonContainer {
     display: flex;
     justify-content: center;
-    margin-top: 1.5rem;
+    margin: 1.5rem;
     gap: 1rem;
 }
 
