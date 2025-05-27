@@ -211,7 +211,7 @@ const VideoPage: React.FC = () => {
                 </div>
 
                 <div className={styles.meta}>
-                    <img src={`${import.meta.env.VITE_API_URL}${videoData.user.profile_picture}`} alt="Profile" className={styles.profilePicture} />
+                    <Link to={`/channel/${videoData.user.username}`}><img src={`${import.meta.env.VITE_API_URL}${videoData.user.profile_picture}`} alt="Profile" className={styles.profilePicture} /></Link>
                     <p>
                         Uploaded by: <Link to={`/channel/${videoData.user.username}`}> {videoData.user.username}</Link>
                         <br />
@@ -259,22 +259,23 @@ const VideoPage: React.FC = () => {
                 </div>
             </div>
             <div className={styles.recommendations}>
-                {videos.map((video) => (
-                    <div className={styles.video__card} key={video.id}>
-                        <img
-                            className={styles.video__thumbnail}
-                            src={`${import.meta.env.VITE_API_URL}` + video.thumbnail}
-                            alt={video.title}
-                        />
-                        <div className={styles.video__border}></div>
-                        <h2 className={styles.video__title}>{video.title}</h2>
-                        <h3 className={styles.video__username}>{video.username}</h3>
-                        <h3 className={styles.video__views}>{video.views_count} views</h3>
-                        <h3 className={styles.video__date}>{new Date(video.created_at).toLocaleDateString()}</h3>
-                        <a href={`http://localhost:5173/video/${video.id}`} className="fillParent"></a>
-                    </div>
-
-                ))}
+                {videos
+                    .filter((video) => String(video.id) !== String(id))
+                    .map((video) => (
+                        <div className={styles.video__card} key={video.id}>
+                            <img
+                                className={styles.video__thumbnail}
+                                src={`${import.meta.env.VITE_API_URL}${video.thumbnail}`}
+                                alt={video.title}
+                            />
+                            <div className={styles.video__border}></div>
+                            <h2 className={styles.video__title}>{video.title}</h2>
+                            <h3 className={styles.video__username}>{video.username}</h3>
+                            <h3 className={styles.video__views}>{video.views_count} views</h3>
+                            <h3 className={styles.video__date}>{new Date(video.created_at).toLocaleDateString()}</h3>
+                            <a href={`/video/${video.id}`} className="fillParent"></a>
+                        </div>
+                    ))}
             </div>
         </div>
     );

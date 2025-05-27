@@ -82,7 +82,14 @@ const UploadVideo: React.FC = () => {
                 },
             });
             setSuccess(true);
-            // Optionally reset form here
+            // Reset all fields after successful upload
+            setVideoFile(null);
+            setVideoPreview(null);
+            setTitle("");
+            setDescription("");
+            setUploadProgress(0);
+            setThumbnail(null);
+            setThumbnailPreview(null);
             // Log the server response
             console.log("Server Response:", response.data);
         } catch (error) {

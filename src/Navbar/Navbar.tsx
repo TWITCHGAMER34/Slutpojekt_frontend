@@ -69,7 +69,10 @@ function Navbar() {
         <div className="navbar">
             <div className="top-navbar">
                 <div className="logo">
-                    <a href="/"> <img src="/NinjaHalfpipe logo.png" alt=""/> </a>
+                    <a href="/">
+                        <img src="/NinjaHalfpipe logo.png" alt=""/>
+                        <span className="logo-text">NinjaHalfPipe</span>
+                    </a>
                 </div>
                 {/* Search bar for video search */}
                 <form className="search-bar" onSubmit={handleSearch}>

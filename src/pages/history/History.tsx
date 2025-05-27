@@ -7,9 +7,9 @@ interface HistoryItem {
     id: number;
     title: string;
     thumbnail: string;
-    username: string;
     views_count: number;
     created_at: string;
+    uploader: string;
 }
 
 const History: React.FC = () => {
@@ -68,7 +68,9 @@ const History: React.FC = () => {
             <div className={styles.historyList}>
                 {visibleItems.map(item => (
                     <Link to={`/video/${item.id}`} key={item.id} className={styles.historyItem}>
-                        {/* Video thumbnail */}
+                        <img src={`${import.meta.env.VITE_API_URL}${item.thumbnail}`} alt={item.title} className={styles.thumbnail} />
+                        <p className={styles.videoTitle}>{item.title}</p>
+                        <p className={styles.uploader}>By: {item.uploader}</p>
                         <img
                             className={styles.thumbnail}
                             src={`${import.meta.env.VITE_API_URL}${item.thumbnail}`}
@@ -78,7 +80,7 @@ const History: React.FC = () => {
                         {/* Video title */}
                         <h2 className={styles.title}>{item.title}</h2>
                         {/* Uploader's username */}
-                        <h3 className={styles.username}>{item.username}</h3>
+                        <h3 className={styles.username}>{item.uploader}</h3>
                         {/* View count */}
                         <h3 className={styles.views}>{item.views_count} views</h3>
                         {/* Upload date */}

@@ -5,24 +5,31 @@ import { useAuth } from '../../auth/context/AuthContext.tsx';
 import './Account.css';
 
 function Account() {
-    // Access authentication state and user information from AuthContext
     const { isLoggedIn, user } = useAuth();
 
-    // State to manage user data from profile updates
     const [userData, setUserData] = useState({
         firstname: '',
         lastname: '',
         DOB: '',
-        email: '',
+        email: user?.email || '',
         username: '',
         bio: '',
         profilePicture: '' as string | File
     });
 
-    // State to manage error messages
     const [error, setError] = useState<string | null>(null);
-    // State to track the character count for the bio/description
     const [charCount, setCharCount] = useState(0);
+    const [emailSuccess, setEmailSuccess] = useState<string | null>(null);
+
+    // Modal state
+    const [showModal, setShowModal] = useState(false);
+    const [passwordFields, setPasswordFields] = useState({
+        current: '',
+        new: '',
+        confirm: ''
+    });
+    const [passwordError, setPasswordError] = useState<string | null>(null);
+    const [passwordSuccess, setPasswordSuccess] = useState<string | null>(null);
 
     // Handle changes to the picture input
     const handleProfilePictureChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,6 +47,23 @@ function Account() {
         }
     };
 
+    // Handle email change
+    const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setUserData({ ...userData, email: event.target.value });
+    };
+
+    // Save new email
+    const handleEmailSave = async () => {
+        setEmailSuccess(null);
+        setError(null);
+        try {
+            await axios.post(`${import.meta.env.VITE_API_URL}/updateEmail`, { email: userData.email });
+            setEmailSuccess('Email updated successfully');
+        } catch (err) {
+            setError('Error updating email');
+        }
+    };
+
     // Handle form submission for updating profile picture and bio/description
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
@@ -54,22 +78,52 @@ function Account() {
         }
 
         try {
-            // Send profile picture to the backend
             if (userData.profilePicture) {
                 await axios.post(`${import.meta.env.VITE_API_URL}/account/uploadProfilePicture`, formData, {});
             }
-            // Send bio/description to the backend
             if (userData.bio) {
                 await axios.post(`${import.meta.env.VITE_API_URL}/updateDescription`, { bio: userData.bio });
             }
             alert('Profile picture and/or description updated successfully');
         } catch (error) {
-            console.error('Error updating profile picture or description', error);
             setError('Error updating profile picture or description');
         }
     };
 
-    // Redirect to login page is the user is not logged in
+    // Password modal handlers
+    const openModal = () => {
+        setShowModal(true);
+        setPasswordFields({ current: '', new: '', confirm: '' });
+        setPasswordError(null);
+        setPasswordSuccess(null);
+    };
+    const closeModal = () => setShowModal(false);
+
+    const handlePasswordFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setPasswordFields({ ...passwordFields, [e.target.name]: e.target.value });
+    };
+
+    const handlePasswordSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setPasswordError(null);
+        setPasswordSuccess(null);
+
+        if (passwordFields.new !== passwordFields.confirm) {
+            setPasswordError('New passwords do not match');
+            return;
+        }
+        try {
+            await axios.post(`${import.meta.env.VITE_API_URL}/changePassword`, {
+                currentPassword: passwordFields.current,
+                newPassword: passwordFields.new
+            });
+            setPasswordSuccess('Password changed successfully');
+            setTimeout(closeModal, 1500);
+        } catch (err) {
+            setPasswordError('Error changing password');
+        }
+    };
+
     if (!isLoggedIn) {
         return (
             <div className="login-prompt">
@@ -83,7 +137,6 @@ function Account() {
             <div className="account-container">
                 <div className="column"></div>
                 <div className="column">
-                    {/* Display user's profile picture and username */}
                     <img
                         src={typeof user?.profile_picture === 'string' ? `${import.meta.env.VITE_API_URL}${user?.profile_picture}` : 'src/assets/ProfilePic.png'}
                         alt="Profile Picture" className="profile-picture" />
@@ -94,13 +147,12 @@ function Account() {
                 </div>
             </div>
 
-            {/* Form for updating profile picture and bio */}
             <div className="account-info">
                 <h2>Account Information</h2>
                 <form onSubmit={handleSubmit} encType="multipart/form-data">
                     <div>
                         <label>Profile Picture:</label>
-                        <input name={"profile_picture"} type="file" onChange={handleProfilePictureChange} />
+                        <input name="profile_picture" type="file" onChange={handleProfilePictureChange} />
                     </div>
                     <div>
                         <label>Description:</label>
@@ -115,11 +167,9 @@ function Account() {
                     </div>
                     <button type="submit">Save Changes</button>
                 </form>
-                {/* Display error message if any */}
                 {error && <p className="error-message">{error}</p>}
             </div>
 
-            {/* Display additional account information */}
             <div className="account-info" id="bottom">
                 <h2>More Account Information</h2>
                 <form>
@@ -137,14 +187,67 @@ function Account() {
                     </div>
                     <div>
                         <label>Email:</label>
-                        <input type="email" value={user?.email || ''} readOnly />
+                        <input
+                            type="email"
+                            value={userData.email}
+                            onChange={handleEmailChange}
+                        />
+                        <button type="button" onClick={handleEmailSave} style={{ marginLeft: '1rem', marginTop: '10px' }}>Save Email</button>
+                        {emailSuccess && <span className="success-message">{emailSuccess}</span>}
                     </div>
                     <div>
                         <label>Username:</label>
                         <input type="text" value={user?.username || ''} readOnly />
                     </div>
                 </form>
+                <button type="button" onClick={openModal} style={{ marginTop: '1rem' }}>Change Password</button>
             </div>
+
+            {showModal && (
+                <div className="modal-overlay">
+                    <div className="modal">
+                        <h2>Change Password</h2>
+                        <form onSubmit={handlePasswordSubmit}>
+                            <div>
+                                <label>Current Password:</label>
+                                <input
+                                    type="password"
+                                    name="current"
+                                    value={passwordFields.current}
+                                    onChange={handlePasswordFieldChange}
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <label>New Password:</label>
+                                <input
+                                    type="password"
+                                    name="new"
+                                    value={passwordFields.new}
+                                    onChange={handlePasswordFieldChange}
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <label>Confirm New Password:</label>
+                                <input
+                                    type="password"
+                                    name="confirm"
+                                    value={passwordFields.confirm}
+                                    onChange={handlePasswordFieldChange}
+                                    required
+                                />
+                            </div>
+                            {passwordError && <p className="error-message">{passwordError}</p>}
+                            {passwordSuccess && <p className="success-message">{passwordSuccess}</p>}
+                            <div style={{ marginTop: '1rem' }}>
+                                <button type="submit">Submit</button>
+                                <button type="button" onClick={closeModal} style={{ marginLeft: '1rem' }}>Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
