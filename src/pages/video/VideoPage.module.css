@@ -15,21 +15,18 @@
         height: 30vw;
         max-height: 400px;
         width: 100%;
-
         margin: auto auto 5vh 1rem;
 
         position: relative;
         overflow: hidden;
 
-
-
         h2{
-            font-size: 1.5vw;
+            font-size: clamp(1rem, 1.5vw, 1.5vw);
             color: #ffffff;
         }
 
         h3{
-            font-size: 1vw;
+            font-size: clamp(0.8rem, 1vw, 1vw);
             color: #cfcfcf;
         }
     }
@@ -148,7 +145,7 @@
 
     .meta p {
         margin: 0;
-        font-size: 14px;
+        font-size: 16px;
         color: #cacaca;
     }
 
@@ -198,7 +195,7 @@
 
     .description p {
         margin: 0;
-
+        font-size: 14px;
     }
 
     .description.expanded {
@@ -239,6 +236,7 @@
         border-radius: 5px;
         border: 1px solid #ccc;
         resize: none;
+        font-size: 20px;
     }
 
     .commentForm button {
@@ -345,8 +343,8 @@
     }
 
     .profilePicture {
-        width: 25px;
-        height: 25px;
+        width: 40px;
+        height: 40px;
         border-radius: 25%;
         object-fit: cover;
         margin-right: 5px;
@@ -354,7 +352,7 @@
 
     .meta p {
         margin: 0;
-        font-size: 7px;
+        font-size: 12px;
         color: #cacaca;
     }
 
@@ -369,7 +367,7 @@
         border: none;
         border-radius: 2.5px;
         cursor: pointer;
-        font-size: 7px;
+        font-size: 12px;
     }
 
     .likeButton {
@@ -387,7 +385,7 @@
     }
 
     .description {
-        font-size: 8px;
+        font-size: 14px;
         line-height: .75;
         color: #cacaca;
         overflow: hidden;
@@ -404,7 +402,7 @@
 
     .description p {
         margin: 0;
-        font-size: 7px;
+        font-size: 12px;
     }
 
     .description.expanded {

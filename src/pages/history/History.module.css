@@ -89,12 +89,12 @@
 
 
         h2 {
-            font-size: 1.5vw;
+            font-size: clamp(1.5rem, 1.5vw, 1.5vw);
             color: #ffffff;
         }
 
         h3 {
-            font-size: 1vw;
+            font-size: clamp(1rem, 1vw, 1vw);
             color: #cfcfcf;
         }
     }
